@@ -1,0 +1,533 @@
+/* ============================================================
+   KAYAKALP — Hero Carousel
+   section-hero.css
+   ============================================================ */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  height: 70vh;
+  min-height: 480px;
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    height: 100vh;
+    min-height: 600px;
+    max-height: 860px;
+  }
+}
+
+/* ── Track ────────────────────────────────────────────────── */
+.hero__track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+/* ── Slide ────────────────────────────────────────────────── */
+.hero__slide {
+  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Themes */
+.hero__slide--dark {
+  background: var(--color-bg-dark);
+}
+
+.hero__slide--saffron {
+  background: linear-gradient(135deg, var(--color-accent-saffron) 0%, var(--color-bg-secondary) 70%);
+}
+
+.hero__slide--herb {
+  background: var(--color-bg-herb);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* Background image */
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Overlay */
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.hero__slide--dark .hero__overlay {
+  background: rgba(28, 46, 20, 0.7);
+}
+
+.hero__slide--saffron .hero__overlay {
+  background: transparent;
+}
+
+.hero__slide--herb .hero__overlay {
+  background: rgba(238, 245, 232, 0.4);
+}
+
+/* Mandala watermark */
+.hero__slide::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  border: 2px solid var(--color-accent-gold);
+  opacity: 0.06;
+  right: -100px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero__slide::after {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  border: 1px solid var(--color-accent-gold);
+  opacity: 0.04;
+  right: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Botanical decorative SVG leaves */
+.hero__botanical {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.12;
+  border-radius: var(--radius-leaf);
+  background: var(--color-primary-light);
+  animation: floatLeaf 8s ease-in-out infinite;
+}
+
+.hero__botanical--1 {
+  width: 80px;
+  height: 140px;
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+}
+
+.hero__botanical--2 {
+  width: 60px;
+  height: 100px;
+  bottom: 15%;
+  left: 8%;
+  animation-delay: 2s;
+  animation-duration: 10s;
+}
+
+.hero__slide--saffron .hero__botanical {
+  background: var(--color-accent-copper);
+}
+
+.hero__slide--herb .hero__botanical {
+  background: var(--color-primary);
+}
+
+/* ── Container Layout ─────────────────────────────────────── */
+.hero__container {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  align-items: center;
+  height: 100%;
+  padding-block: var(--space-8);
+}
+
+@media (min-width: 768px) {
+  .hero__container {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+  }
+}
+
+/* ── Full-bleed (bg-image only, no product image column) ─── */
+@media (min-width: 768px) {
+  .hero__slide--bg-only .hero__container {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    max-width: 72rem;
+    margin-inline: auto;
+  }
+
+  .hero__slide--bg-only .hero__content {
+    align-items: center;
+    text-align: center;
+    max-width: 56rem;
+  }
+
+  .hero__slide--bg-only .hero__cta-row {
+    justify-content: center;
+  }
+
+  .hero__slide--bg-only .hero__badge {
+    justify-content: center;
+  }
+}
+
+/* ── Hero Content ─────────────────────────────────────────── */
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  order: 1;
+}
+
+@media (max-width: 767px) {
+  .hero__content {
+    text-align: center;
+    align-items: center;
+    padding-top: var(--space-8);
+  }
+}
+
+/* Eyebrow */
+.hero__eyebrow {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-accent-gold);
+}
+
+/* Headline */
+.hero__headline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.hero__headline-hi {
+  font-family: var(--font-devanagari);
+  font-size: var(--text-xl);
+  font-weight: 500;
+  line-height: var(--leading-snug);
+  opacity: 0.9;
+}
+
+.hero__headline-en {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  line-height: var(--leading-tight);
+}
+
+@media (min-width: 768px) {
+  .hero__headline-hi { font-size: var(--text-2xl); }
+  .hero__headline-en { font-size: var(--text-3xl); }
+}
+
+@media (min-width: 1024px) {
+  .hero__headline-hi { font-size: var(--text-3xl); }
+  .hero__headline-en { font-size: var(--text-4xl); }
+}
+
+/* Colors per theme */
+.hero__slide--dark .hero__headline-hi,
+.hero__slide--dark .hero__headline-en,
+.hero__slide--dark .hero__subtext {
+  color: var(--color-text-light);
+}
+
+.hero__slide--saffron .hero__headline-hi,
+.hero__slide--saffron .hero__headline-en,
+.hero__slide--saffron .hero__subtext {
+  color: var(--color-bg-dark);
+}
+
+.hero__slide--saffron .hero__eyebrow {
+  color: var(--color-secondary);
+}
+
+.hero__slide--herb .hero__headline-hi,
+.hero__slide--herb .hero__headline-en {
+  color: var(--color-primary);
+}
+
+.hero__slide--herb .hero__subtext {
+  color: var(--color-text-secondary);
+}
+
+/* Subtext */
+.hero__subtext {
+  font-family: var(--font-subheading);
+  font-style: italic;
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  max-width: 460px;
+  color: var(--color-text-light);
+  opacity: 0.88;
+}
+
+/* Badge */
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: rgba(201, 168, 76, 0.15);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-pill);
+  padding: var(--space-2) var(--space-4);
+  backdrop-filter: blur(6px);
+}
+
+.hero__badge-stars {
+  font-size: var(--text-sm);
+  letter-spacing: 1px;
+}
+
+.hero__badge-text {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-accent-gold);
+}
+
+/* CTA row */
+.hero__cta-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+  margin-top: var(--space-2);
+}
+
+.hero__cta-secondary {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: var(--color-text-light);
+  opacity: 0.85;
+}
+
+.hero__slide--saffron .hero__cta-secondary,
+.hero__slide--herb .hero__cta-secondary {
+  color: var(--color-bg-dark);
+}
+
+.hero__slide--saffron .hero__cta-secondary::after,
+.hero__slide--herb .hero__cta-secondary::after {
+  opacity: 1;
+}
+
+/* ── BG-only overrides: ensure legibility on any background image ─── */
+.hero__slide--bg-only.hero__slide--saffron .hero__overlay {
+  background: rgba(40, 20, 60, 0.52);
+}
+
+.hero__slide--bg-only.hero__slide--herb .hero__overlay {
+  background: rgba(20, 38, 14, 0.58);
+}
+
+.hero__slide--bg-only.hero__slide--saffron .hero__headline-hi,
+.hero__slide--bg-only.hero__slide--saffron .hero__headline-en,
+.hero__slide--bg-only.hero__slide--saffron .hero__subtext,
+.hero__slide--bg-only.hero__slide--herb .hero__headline-hi,
+.hero__slide--bg-only.hero__slide--herb .hero__headline-en,
+.hero__slide--bg-only.hero__slide--herb .hero__subtext {
+  color: var(--color-text-light);
+}
+
+.hero__slide--bg-only.hero__slide--saffron .hero__eyebrow {
+  color: var(--color-accent-gold);
+}
+
+.hero__slide--bg-only.hero__slide--saffron .hero__cta-secondary,
+.hero__slide--bg-only.hero__slide--herb .hero__cta-secondary {
+  color: var(--color-text-light);
+  opacity: 0.85;
+}
+
+/* ── Product Image ────────────────────────────────────────── */
+.hero__image-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  order: 0;
+}
+
+@media (min-width: 768px) {
+  .hero__image-wrap {
+    order: 2;
+    height: 100%;
+    max-height: 600px;
+  }
+}
+
+.hero__image-float {
+  position: relative;
+  animation: floatLeaf 6s ease-in-out infinite;
+  filter: drop-shadow(0 20px 60px rgba(28, 46, 20, 0.35));
+  max-width: 280px;
+}
+
+@media (min-width: 768px) {
+  .hero__image-float {
+    max-width: 420px;
+  }
+}
+
+.hero__product-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--radius-xl);
+}
+
+.hero__image-placeholder {
+  width: 240px;
+  height: 300px;
+  border-radius: var(--radius-leaf);
+  background: rgba(201, 168, 76, 0.1);
+  border: 2px dashed var(--color-border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: floatLeaf 6s ease-in-out infinite;
+}
+
+.hero__image-placeholder-inner {
+  text-align: center;
+  padding: var(--space-8);
+  font-family: var(--font-subheading);
+  font-style: italic;
+  color: var(--color-text-gold);
+  opacity: 0.6;
+}
+
+/* ── Navigation Arrows & Dots ─────────────────────────────── */
+.hero__nav {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hero__arrow {
+  pointer-events: all;
+  width: 48px;
+  height: 48px;
+  background: rgba(28, 46, 20, 0.5);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  border-radius: 50%;
+  color: var(--color-text-light);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-inline: var(--space-3);
+  transition: all var(--transition-base);
+  backdrop-filter: blur(6px);
+  flex-shrink: 0;
+}
+
+.hero__arrow:hover {
+  background: var(--color-accent-gold);
+  color: var(--color-bg-dark);
+  border-color: var(--color-accent-gold);
+  transform: scale(1.08);
+}
+
+@media (max-width: 480px) {
+  .hero__arrow {
+    display: none;
+  }
+}
+
+.hero__dots {
+  position: absolute;
+  bottom: var(--space-6);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--space-2);
+  pointer-events: all;
+}
+
+.hero__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  padding: 0;
+}
+
+.hero__dot--active {
+  background: var(--color-accent-gold);
+  width: 24px;
+  border-radius: var(--radius-pill);
+}
+
+/* ── Progress Bar ─────────────────────────────────────────── */
+.hero__progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 10;
+  overflow: hidden;
+}
+
+.hero__progress-bar {
+  height: 100%;
+  background: var(--color-accent-gold);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+.hero__progress-bar.is-animating {
+  animation: heroProgress linear forwards;
+}
+
+@keyframes heroProgress {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* ── Slide transition animations ──────────────────────────── */
+.hero__slide[aria-hidden="false"] .hero__content > * {
+  animation: fadeUp 0.7s ease forwards;
+}
+
+.hero__slide[aria-hidden="false"] .hero__eyebrow       { animation-delay: 0.1s; }
+.hero__slide[aria-hidden="false"] .hero__headline      { animation-delay: 0.2s; }
+.hero__slide[aria-hidden="false"] .hero__subtext       { animation-delay: 0.35s; }
+.hero__slide[aria-hidden="false"] .hero__badge         { animation-delay: 0.45s; }
+.hero__slide[aria-hidden="false"] .hero__cta-row       { animation-delay: 0.55s; }

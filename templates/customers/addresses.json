@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "customer-addresses",
+      "settings": {
+        "heading": "Saved Addresses",
+        "subheading": "Manage the addresses used for delivery. Your default address is pre-filled at checkout."
+      }
+    }
+  },
+  "order": ["main"]
+}

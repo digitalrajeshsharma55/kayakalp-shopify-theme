@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "customer-activate",
+      "settings": {
+        "eyebrow": "✦ WELCOME TO KAYAKALP",
+        "heading": "Activate Your Account",
+        "subheading": "You were invited to create an account. Set a password to get started on your wellness journey.",
+        "quote": "स्वस्थस्य स्वास्थ्य रक्षणम् — Protect the health of the healthy.",
+        "quote_author": "— Ashtanga Hridayam"
+      }
+    }
+  },
+  "order": ["main"]
+}

@@ -1,0 +1,325 @@
+{{ 'section-hero.css' | asset_url | stylesheet_tag }}
+
+<section class="hero" aria-label="Hero carousel" data-section-id="{{ section.id }}">
+
+  <div class="hero__track js-hero-track" aria-live="polite">
+    {%- for block in section.blocks -%}
+      {%- assign theme = block.settings.theme | default: 'dark' -%}
+      <div
+        class="hero__slide hero__slide--{{ theme }}"
+        role="group"
+        aria-label="Slide {{ forloop.index }} of {{ section.blocks.size }}"
+        aria-hidden="{{ forloop.first | json | replace: 'true', 'false' | replace: 'false', 'true' }}"
+        data-index="{{ forloop.index0 }}"
+        {{ block.shopify_attributes }}
+      >
+
+        <!-- ── Left: Copy + CTAs ─────────────────────────────── -->
+        <div class="hero__left">
+          <div class="hero__botanical hero__botanical--1" aria-hidden="true"></div>
+          <div class="hero__botanical hero__botanical--2" aria-hidden="true"></div>
+
+          <div class="hero__content">
+            {% if block.settings.eyebrow != blank %}
+              <p class="hero__eyebrow">✦ {{ block.settings.eyebrow }}</p>
+            {% endif %}
+
+            <h1 class="hero__headline">
+              {% if block.settings.headline_hi != blank %}
+                <span class="hero__headline-hi">{{ block.settings.headline_hi }}</span>
+              {% endif %}
+              <span class="hero__headline-en">{{ block.settings.headline_en | default: shop.name }}</span>
+            </h1>
+
+            {% if block.settings.subtext != blank %}
+              <p class="hero__subtext">{{ block.settings.subtext }}</p>
+            {% endif %}
+
+            {% if block.settings.badge_text != blank %}
+              <div class="hero__badge">
+                <span class="hero__badge-stars">⭐⭐⭐⭐⭐</span>
+                <span class="hero__badge-text">{{ block.settings.badge_text }}</span>
+              </div>
+            {% endif %}
+
+            <div class="hero__cta-row">
+              {% if block.settings.cta_primary_label != blank %}
+                <a
+                  href="{{ block.settings.cta_primary_url | default: '/collections/all' }}"
+                  class="btn-hero btn-hero--primary"
+                >
+                  {{ block.settings.cta_primary_label }}
+                </a>
+              {% endif %}
+              {% if block.settings.cta_secondary_label != blank %}
+                <a
+                  href="{{ block.settings.cta_secondary_url | default: '/pages/consult' }}"
+                  class="btn-hero btn-hero--secondary"
+                >
+                  {{ block.settings.cta_secondary_label }}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Right: Lifestyle BG + Product Render ─────────── -->
+        <div class="hero__right">
+
+          {%- if block.settings.bg_image != blank -%}
+            <div class="hero__right-bg" aria-hidden="true">
+              <img
+                src="{{ block.settings.bg_image | img_url: '900x' }}"
+                srcset="{{ block.settings.bg_image | img_url: '600x' }} 600w,
+                        {{ block.settings.bg_image | img_url: '900x' }} 900w,
+                        {{ block.settings.bg_image | img_url: '1200x' }} 1200w"
+                sizes="(max-width: 767px) 100vw, 50vw"
+                alt=""
+                {% if forloop.first %}loading="eager"{% else %}loading="lazy"{% endif %}
+                width="900" height="900">
+            </div>
+          {%- else -%}
+            <div class="hero__right-placeholder" aria-hidden="true"></div>
+          {%- endif -%}
+          <div class="hero__right-overlay" aria-hidden="true"></div>
+
+          {%- if block.settings.product_image != blank -%}
+            <div class="hero__image-wrap">
+              <div class="hero__image-float">
+                <img
+                  class="hero__product-image"
+                  src="{{ block.settings.product_image | img_url: '600x' }}"
+                  srcset="{{ block.settings.product_image | img_url: '400x' }} 400w,
+                          {{ block.settings.product_image | img_url: '600x' }} 600w,
+                          {{ block.settings.product_image | img_url: '800x' }} 800w"
+                  sizes="(max-width: 767px) 55vw, 38vw"
+                  alt="{{ block.settings.headline_en | escape }}"
+                  {% if forloop.first %}loading="eager"{% else %}loading="lazy"{% endif %}
+                  width="600" height="700">
+              </div>
+            </div>
+          {%- elsif block.settings.product != blank -%}
+            {%- assign linked_product = all_products[block.settings.product] -%}
+            {%- if linked_product.featured_image -%}
+              <div class="hero__image-wrap">
+                <div class="hero__image-float">
+                  <img
+                    class="hero__product-image"
+                    src="{{ linked_product.featured_image | img_url: '600x' }}"
+                    srcset="{{ linked_product.featured_image | img_url: '400x' }} 400w,
+                            {{ linked_product.featured_image | img_url: '600x' }} 600w"
+                    sizes="(max-width: 767px) 55vw, 38vw"
+                    alt="{{ linked_product.title | escape }}"
+                    loading="lazy"
+                    width="600" height="700">
+                </div>
+              </div>
+            {%- endif -%}
+          {%- else -%}
+            <div class="hero__image-wrap hero__image-wrap--placeholder">
+              <div class="hero__image-placeholder">
+                <div class="hero__image-placeholder-inner">
+                  <span>{{ block.settings.headline_en | default: 'Product' | truncate: 15, '…' }}</span>
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+
+        </div>
+
+      </div>
+    {%- endfor -%}
+  </div>
+
+  <!-- Navigation -->
+  {% if section.blocks.size > 1 %}
+    <div class="hero__nav" aria-label="Carousel navigation">
+      <button class="hero__arrow hero__arrow--prev js-hero-prev" aria-label="Previous slide">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M12 5l-5 5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="hero__arrow hero__arrow--next js-hero-next" aria-label="Next slide">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M8 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="hero__dots" role="tablist" aria-label="Go to slide">
+        {%- for block in section.blocks -%}
+          <button
+            class="hero__dot{% if forloop.first %} hero__dot--active{% endif %}"
+            role="tab"
+            aria-selected="{{ forloop.first | json }}"
+            aria-label="Go to slide {{ forloop.index }}"
+            data-index="{{ forloop.index0 }}"
+          ></button>
+        {%- endfor -%}
+      </div>
+    </div>
+  {% endif %}
+
+  <!-- Progress bar -->
+  <div class="hero__progress js-hero-progress" aria-hidden="true">
+    <div class="hero__progress-bar js-hero-progress-bar"></div>
+  </div>
+
+</section>
+
+<script src="{{ 'kayakalp-hero.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Hero Carousel",
+  "tag": "section",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Auto-advance speed (seconds)",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto-advance slides",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "select",
+          "id": "theme",
+          "label": "Slide theme",
+          "options": [
+            { "value": "dark", "label": "Dark Forest" },
+            { "value": "saffron", "label": "Saffron Cream" },
+            { "value": "herb", "label": "Herb Green" }
+          ],
+          "default": "dark"
+        },
+        {
+          "type": "image_picker",
+          "id": "bg_image",
+          "label": "Right-column lifestyle image"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow label",
+          "default": "AYURVEDIC HAIR CARE"
+        },
+        {
+          "type": "text",
+          "id": "headline_hi",
+          "label": "Headline (Hindi)",
+          "default": "बालों की जड़ों को जगाएं"
+        },
+        {
+          "type": "text",
+          "id": "headline_en",
+          "label": "Headline (English)",
+          "default": "Awaken Your Roots"
+        },
+        {
+          "type": "textarea",
+          "id": "subtext",
+          "label": "Subtext",
+          "default": "Bhringraj, Amla & Brahmi — three ancient herbs, one powerful formula"
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Badge text",
+          "default": "4.8 · 12,400+ Reviews"
+        },
+        {
+          "type": "text",
+          "id": "cta_primary_label",
+          "label": "Primary CTA label",
+          "default": "Shop Hair Care"
+        },
+        {
+          "type": "url",
+          "id": "cta_primary_url",
+          "label": "Primary CTA URL"
+        },
+        {
+          "type": "text",
+          "id": "cta_secondary_label",
+          "label": "Secondary CTA label",
+          "default": "Free Consultation"
+        },
+        {
+          "type": "url",
+          "id": "cta_secondary_url",
+          "label": "Secondary CTA URL"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "Product render (transparent PNG)"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Or link to product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Carousel",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "theme": "dark",
+            "eyebrow": "AYURVEDIC HAIR CARE",
+            "headline_hi": "बालों की जड़ों को जगाएं",
+            "headline_en": "Awaken Your Roots",
+            "subtext": "Bhringraj, Amla & Brahmi — three ancient herbs, one powerful formula",
+            "badge_text": "4.8 · 12,400+ Reviews",
+            "cta_primary_label": "Shop Hair Care",
+            "cta_secondary_label": "Free Consultation"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "theme": "saffron",
+            "eyebrow": "VEDIC SKIN SCIENCE",
+            "headline_hi": "त्वचा में चमक, अंदर से",
+            "headline_en": "Glow. Rooted in Tradition.",
+            "subtext": "Kumkumadi, Manjistha & Sandalwood — for skin that tells your story",
+            "badge_text": "4.9 · 8,200+ Reviews",
+            "cta_primary_label": "Explore Skin Range",
+            "cta_secondary_label": "See Ingredients"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "theme": "herb",
+            "eyebrow": "IMMUNITY RITUALS",
+            "headline_hi": "रोज़ाना एक कदम, स्वास्थ्य की तरफ",
+            "headline_en": "Daily Rituals. Lifelong Health.",
+            "subtext": "Ashwagandha, Giloy & Tulsi — India's most trusted immunity trinity",
+            "badge_text": "4.7 · 15,600+ Reviews",
+            "cta_primary_label": "Build Your Routine",
+            "cta_secondary_label": "Free Consultation"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

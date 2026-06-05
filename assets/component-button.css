@@ -1,0 +1,270 @@
+/* ============================================================
+   KAYAKALP — Button Components
+   component-button.css
+   ============================================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: var(--text-base);
+  border-radius: var(--radius-pill);
+  padding: var(--space-3) var(--space-8);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-decoration: none;
+  white-space: nowrap;
+  line-height: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Primary — Gold Fill */
+.btn-primary {
+  background: var(--color-accent-gold);
+  color: var(--color-bg-dark);
+  border-color: var(--color-accent-gold);
+}
+
+.btn-primary:hover {
+  background: var(--color-accent-copper);
+  border-color: var(--color-accent-copper);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Secondary — Green Fill */
+.btn-secondary {
+  background: var(--color-primary);
+  color: var(--color-text-light);
+  border-color: var(--color-primary);
+}
+
+.btn-secondary:hover {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Ghost — Gold Outline */
+.btn-ghost {
+  background: transparent;
+  color: var(--color-accent-gold);
+  border-color: var(--color-accent-gold);
+}
+
+.btn-ghost:hover {
+  background: var(--color-accent-gold);
+  color: var(--color-bg-dark);
+  transform: translateY(-2px);
+}
+
+/* Ghost Light — For use on dark backgrounds */
+.btn-ghost-light {
+  background: transparent;
+  color: var(--color-text-light);
+  border-color: rgba(245, 240, 232, 0.5);
+}
+
+.btn-ghost-light:hover {
+  background: rgba(245, 240, 232, 0.1);
+  border-color: var(--color-text-light);
+  transform: translateY(-2px);
+}
+
+/* Dark — For use on light backgrounds */
+.btn-dark {
+  background: var(--color-bg-dark);
+  color: var(--color-text-gold);
+  border-color: var(--color-bg-dark);
+}
+
+.btn-dark:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* WhatsApp CTA */
+.btn-whatsapp {
+  background: #25D366;
+  color: #fff;
+  border-color: #25D366;
+}
+
+.btn-whatsapp::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z'/%3E%3Cpath d='M12 0C5.373 0 0 5.373 0 12c0 2.118.553 4.108 1.517 5.837L0 24l6.335-1.482A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.796 9.796 0 01-5.012-1.374l-.36-.214-3.728.871.938-3.643-.234-.374A9.796 9.796 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+}
+
+.btn-whatsapp:hover {
+  background: #128C7E;
+  border-color: #128C7E;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+}
+
+/* Add to Cart — Full width */
+.btn-cart {
+  background: var(--color-bg-dark);
+  color: var(--color-text-gold);
+  width: 100%;
+  font-size: var(--text-md);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  border-color: var(--color-bg-dark);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.btn-cart:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-cart.is-loading {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.btn-cart.is-loading::after {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--color-text-gold);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: rotateSlow 0.8s linear infinite;
+  margin-left: var(--space-2);
+}
+
+/* Buy Now */
+.btn-buy-now {
+  background: var(--color-accent-gold);
+  color: var(--color-bg-dark);
+  width: 100%;
+  font-size: var(--text-md);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  border-color: var(--color-accent-gold);
+  font-weight: 700;
+}
+
+.btn-buy-now:hover {
+  background: var(--color-accent-copper);
+  border-color: var(--color-accent-copper);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+}
+
+/* Size variants */
+.btn-sm {
+  font-size: var(--text-sm);
+  padding: var(--space-2) var(--space-6);
+}
+
+.btn-lg {
+  font-size: var(--text-md);
+  padding: var(--space-4) var(--space-10);
+}
+
+/* Icon button */
+.btn-icon {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  color: var(--color-text-primary);
+}
+
+.btn-icon:hover {
+  background: var(--color-bg-secondary);
+  color: var(--color-primary);
+}
+
+/* Link style button */
+.btn-link {
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  font-family: var(--font-label);
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--transition-fast);
+}
+
+.btn-link:hover {
+  color: var(--color-accent-gold);
+  transform: none;
+}
+
+.btn-link--gold {
+  color: var(--color-accent-gold);
+}
+
+.btn-link--gold:hover {
+  color: var(--color-accent-copper);
+}
+
+/* CTA with arrow */
+.btn-arrow {
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  font-family: var(--font-label);
+  font-weight: 600;
+  color: var(--color-accent-gold);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  transition: gap var(--transition-base), color var(--transition-fast);
+}
+
+.btn-arrow::after {
+  content: '→';
+  transition: transform var(--transition-base);
+}
+
+.btn-arrow:hover {
+  color: var(--color-accent-copper);
+  gap: var(--space-3);
+}
+
+.btn-arrow:hover::after {
+  transform: translateX(4px);
+}

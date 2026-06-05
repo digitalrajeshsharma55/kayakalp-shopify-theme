@@ -1,0 +1,51 @@
+{
+  "general": {
+    "title": "Kayakalp Ayurveda",
+    "meta_description": "Ancient Wisdom. Living Results. Premium Ayurvedic health products trusted by 2 lakh+ Indian families.",
+    "password_page_message": "Coming soon",
+    "404_page_title": "Page not found",
+    "404_page_description": "The page you requested does not exist."
+  },
+  "navigation": {
+    "home": "Home",
+    "products": "Products",
+    "conditions": "Conditions",
+    "ingredients": "Ingredients",
+    "our_story": "Our Story",
+    "consult": "Consult a Vaidya",
+    "cart": "Cart",
+    "account": "Account",
+    "search": "Search",
+    "menu": "Menu",
+    "close": "Close"
+  },
+  "cart": {
+    "title": "Your Cart",
+    "empty": "Your cart is empty",
+    "note": "Order notes",
+    "subtotal": "Subtotal",
+    "checkout": "Checkout",
+    "item_count": {
+      "one": "{{ count }} item",
+      "other": "{{ count }} items"
+    }
+  },
+  "products": {
+    "add_to_cart": "Add to Cart",
+    "sold_out": "Sold Out",
+    "buy_now": "Buy Now",
+    "subscribe": "Subscribe & Save",
+    "one_time": "One-time Purchase",
+    "quick_view": "Quick View",
+    "wishlist": "Add to Wishlist",
+    "share": "Share"
+  },
+  "accessibility": {
+    "skip_to_content": "Skip to content",
+    "loading": "Loading",
+    "close": "Close",
+    "open": "Open",
+    "previous": "Previous",
+    "next": "Next"
+  }
+}

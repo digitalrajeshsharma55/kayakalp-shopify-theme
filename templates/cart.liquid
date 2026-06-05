@@ -1,0 +1,133 @@
+<div class="cart-page section">
+  <div class="container">
+    <h1 class="section-title text-center" data-animate>Your Cart</h1>
+
+    {%- if cart.item_count > 0 -%}
+      <form action="/cart" method="post" novalidate class="cart-page__form">
+        <div class="cart-page__layout">
+          <!-- Cart Items -->
+          <div class="cart-page__items">
+            {%- for item in cart.items -%}
+              <div class="cart-item cart-item--page" data-animate data-animate-delay="{{ forloop.index }}">
+                <a href="{{ item.url }}" class="cart-item__image">
+                  <img
+                    src="{{ item.image | img_url: '200x200', crop: 'center' }}"
+                    alt="{{ item.title | escape }}"
+                    loading="lazy" width="120" height="120">
+                </a>
+                <div class="cart-item__info">
+                  <a href="{{ item.url }}" class="cart-item__name">{{ item.product_title }}</a>
+                  {%- unless item.variant.title == 'Default Title' -%}
+                    <p class="cart-item__variant">{{ item.variant.title }}</p>
+                  {%- endunless -%}
+                  <p class="cart-item__price">{{ item.line_price | money }}</p>
+                  <div class="cart-item__bottom">
+                    <div class="cart-item__qty">
+                      <a href="{{ routes.cart_url }}?updates[{{ item.id }}]={{ item.quantity | minus: 1 }}&amp;attributes[_ts]={{ 'now' | date: '%s' }}" class="cart-item__qty-btn" aria-label="Decrease quantity">−</a>
+                      <span class="cart-item__qty-num">{{ item.quantity }}</span>
+                      <a href="{{ routes.cart_url }}?updates[{{ item.id }}]={{ item.quantity | plus: 1 }}&amp;attributes[_ts]={{ 'now' | date: '%s' }}" class="cart-item__qty-btn" aria-label="Increase quantity">+</a>
+                    </div>
+                    <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0" class="cart-item__remove">Remove</a>
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+
+          <!-- Cart Summary -->
+          <div class="cart-page__summary" data-animate>
+            <h2 class="cart-page__summary-title">Order Summary</h2>
+
+            <div class="cart-totals">
+              <div class="cart-totals__row">
+                <span>Subtotal</span>
+                <span>{{ cart.total_price | money }}</span>
+              </div>
+              {%- if cart.total_price < 69900 -%}
+                <div class="cart-free-delivery">
+                  <p>Add <strong>{{ 69900 | minus: cart.total_price | money }}</strong> more for free delivery 🚚</p>
+                  <div class="cart-free-delivery__bar">
+                    <div class="cart-free-delivery__fill" style="width:{{ cart.total_price | times: 100 | divided_by: 69900 }}%;"></div>
+                  </div>
+                </div>
+              {%- else -%}
+                <p class="cart-free-delivery__earned">🎉 You qualify for FREE delivery!</p>
+              {%- endif -%}
+              <div class="cart-totals__row cart-totals__row--total">
+                <span>Total</span>
+                <span>{{ cart.total_price | money }}</span>
+              </div>
+              <p class="cart-page__note">Shipping calculated at checkout</p>
+            </div>
+
+            <button type="submit" name="checkout" class="btn btn-primary w-full btn-lg">
+              Checkout Securely →
+            </button>
+            <a href="{{ routes.cart_url }}" class="btn btn-ghost w-full" style="margin-top:var(--space-3);">
+              View Full Cart
+            </a>
+
+            <div class="cart-page__trust">
+              <span>🔒 Secure</span>
+              <span>💵 COD Available</span>
+              <span>🔄 Easy Returns</span>
+            </div>
+          </div>
+        </div>
+      </form>
+    {%- else -%}
+      <div class="cart-page__empty">
+        <div class="cart-drawer__empty-icon" style="font-size:4rem;opacity:0.4;">🛒</div>
+        <h2>Your cart is empty</h2>
+        <p>Explore our range of Ayurvedic formulas crafted for your wellbeing.</p>
+        <a href="/collections/all" class="btn btn-secondary">Shop Now</a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<style>
+.cart-page__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-10);
+  margin-top: var(--space-8);
+}
+@media (min-width: 768px) { .cart-page__layout { grid-template-columns: 3fr 2fr; } }
+.cart-item--page {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: var(--space-6);
+  padding-block: var(--space-6);
+  border-bottom: 1px solid var(--color-border-light);
+}
+.cart-item--page .cart-item__image img { border-radius: var(--radius-lg); }
+.cart-item__price { font-family: var(--font-label); font-weight: 700; font-size: var(--text-lg); color: var(--color-primary); }
+.cart-item__qty-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  font-size: var(--text-lg);
+  color: var(--color-text-primary);
+  transition: all var(--transition-fast);
+}
+.cart-item__qty-btn:hover { background: var(--color-bg-secondary); }
+.cart-page__summary {
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  border: 1px solid var(--color-border-light);
+  position: sticky;
+  top: calc(80px + var(--space-6));
+  height: fit-content;
+}
+.cart-page__summary-title { font-family: var(--font-heading); font-size: var(--text-xl); margin-bottom: var(--space-6); }
+.cart-free-delivery { background: rgba(58, 125, 58, 0.08); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4); margin-block: var(--space-3); font-size: var(--text-sm); }
+.cart-free-delivery__bar { height: 4px; background: var(--color-border); border-radius: var(--radius-pill); margin-top: var(--space-2); overflow: hidden; }
+.cart-free-delivery__fill { height: 100%; background: var(--color-success); border-radius: var(--radius-pill); transition: width var(--transition-slow); }
+.cart-free-delivery__earned { color: var(--color-success); font-family: var(--font-label); font-weight: 600; font-size: var(--text-sm); margin-block: var(--space-3); }
+.cart-page__note { font-size: var(--text-xs); color: var(--color-text-secondary); margin-top: var(--space-2); margin-bottom: var(--space-6); }
+.cart-page__trust { display: flex; justify-content: space-between; margin-top: var(--space-4); font-family: var(--font-label); font-size: var(--text-xs); color: var(--color-text-secondary); }
+.cart-page__empty { text-align: center; padding: var(--space-20) 0; display: flex; flex-direction: column; gap: var(--space-4); align-items: center; }
+</style>

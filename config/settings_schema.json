@@ -1,0 +1,104 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Kayakalp Ayurveda",
+    "theme_version": "1.0.0",
+    "theme_author": "Kayakalp",
+    "theme_documentation_url": "https://kayakalp.com",
+    "theme_support_url": "https://kayakalp.com/pages/support"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      },
+      {
+        "type": "text",
+        "id": "shop_name",
+        "label": "Shop name override",
+        "info": "Leave blank to use your Shopify store name"
+      }
+    ]
+  },
+  {
+    "name": "Animations",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "animations_enabled",
+        "label": "Enable scroll animations",
+        "default": true,
+        "info": "Fade-in animations when sections scroll into view"
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Brand Colors — Use CSS variables in your CSS files. These are reference only."
+      },
+      {
+        "type": "paragraph",
+        "content": "Colors are defined in assets/application.css using CSS custom properties. Edit that file to change the palette."
+      }
+    ]
+  },
+  {
+    "name": "WhatsApp",
+    "settings": [
+      {
+        "type": "text",
+        "id": "whatsapp_number",
+        "label": "WhatsApp number (with country code, no +)",
+        "default": "919876543210",
+        "info": "e.g., 919876543210 for +91 98765 43210"
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_default_message",
+        "label": "Default WhatsApp message",
+        "default": "Namaste! I'm interested in Kayakalp's Ayurvedic products."
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook URL"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": "YouTube URL"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "Twitter/X URL"
+      }
+    ]
+  },
+  {
+    "name": "SEO",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "og_image_fallback",
+        "label": "Default social sharing image"
+      }
+    ]
+  }
+]

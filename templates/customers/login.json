@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "main": {
+      "type": "customer-login",
+      "blocks": {
+        "badge-1": { "type": "trust_badge", "settings": { "label": "📜 AYUSH Licensed" } },
+        "badge-2": { "type": "trust_badge", "settings": { "label": "🏆 GMP Certified" } },
+        "badge-3": { "type": "trust_badge", "settings": { "label": "2L+ Happy Families" } }
+      },
+      "block_order": ["badge-1", "badge-2", "badge-3"],
+      "settings": {
+        "eyebrow": "✦ WELCOME BACK",
+        "heading": "Sign In to Your Account",
+        "subheading": "Access your order history, saved addresses, and Ayurvedic wellness journey.",
+        "show_register_link": true,
+        "quote": "आरोग्यं परमं भाग्यं — Health is the greatest wealth.",
+        "quote_author": "— Charaka Samhita"
+      }
+    }
+  },
+  "order": ["main"]
+}

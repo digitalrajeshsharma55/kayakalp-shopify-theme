@@ -1,0 +1,246 @@
+{{ 'page-customer.css' | asset_url | stylesheet_tag }}
+
+<div class="account-page section">
+  <div class="container">
+    <div class="account-layout">
+
+      <!-- Sidebar (same as account page) -->
+      <aside class="account-sidebar">
+        <div class="account-sidebar__header">
+          <div class="account-sidebar__avatar" aria-hidden="true">
+            {{ customer.first_name | slice: 0 | upcase }}
+          </div>
+          <p class="account-sidebar__name">{{ customer.first_name }}</p>
+          <p class="account-sidebar__email">{{ customer.email }}</p>
+        </div>
+        <nav class="account-sidebar__nav" aria-label="Account navigation">
+          <a href="{{ routes.account_url }}" class="account-sidebar__link">
+            <span class="account-sidebar__link-icon">📦</span> My Orders
+          </a>
+          <a href="{{ routes.account_addresses_url }}" class="account-sidebar__link account-sidebar__link--active">
+            <span class="account-sidebar__link-icon">🏠</span> Saved Addresses
+          </a>
+          <a href="/pages/consult" class="account-sidebar__link">
+            <span class="account-sidebar__link-icon">💬</span> Talk to a Vaidya
+          </a>
+          <div class="account-sidebar__logout">
+            <a href="{{ routes.account_logout_url }}" class="account-sidebar__link">
+              <span class="account-sidebar__link-icon">🚪</span> Sign Out
+            </a>
+          </div>
+        </nav>
+      </aside>
+
+      <!-- Main -->
+      <main>
+        <div style="margin-bottom:var(--space-8);">
+          <p class="section-eyebrow">✦ YOUR ADDRESSES</p>
+          <h1 class="section-title" style="color:var(--color-primary);font-size:var(--text-2xl);">
+            {{ section.settings.heading }}
+          </h1>
+          <p style="font-size:var(--text-sm);color:var(--color-text-secondary);">{{ section.settings.subheading }}</p>
+        </div>
+
+        <!-- Add New Address CTA -->
+        <div class="addresses-grid">
+
+          <!-- Add New -->
+          <button
+            type="button"
+            class="address-card address-card--new js-toggle-new-address"
+            aria-expanded="false"
+            aria-controls="new-address-form">
+            <span class="address-card--new__icon">+</span>
+            <span class="address-card--new__label">Add New Address</span>
+          </button>
+
+          <!-- Existing Addresses -->
+          {%- for address in customer.addresses -%}
+            <div class="address-card {%- if address == customer.default_address -%} address-card--default {%- endif -%}">
+              {%- if address == customer.default_address -%}
+                <span class="address-card__default-badge">Default</span>
+              {%- endif -%}
+
+              <span class="address-card__name">{{ address.name }}</span>
+              <address>
+                {{ address.address1 }}<br>
+                {%- if address.address2 != blank -%}{{ address.address2 }}<br>{%- endif -%}
+                {{ address.city }}, {{ address.province }} {{ address.zip }}<br>
+                {{ address.country }}
+                {%- if address.phone -%}<br>{{ address.phone }}{%- endif -%}
+              </address>
+
+              <div class="address-card__actions">
+                <button
+                  type="button"
+                  class="address-card__btn js-edit-address"
+                  aria-controls="edit-address-{{ address.id }}"
+                  data-id="{{ address.id }}">
+                  Edit
+                </button>
+                {%- unless address == customer.default_address -%}
+                  <button
+                    type="button"
+                    class="address-card__btn js-set-default-address"
+                    data-id="{{ address.id }}"
+                    data-url="{{ routes.account_addresses_url }}/{{ address.id }}">
+                    Set Default
+                  </button>
+                  <button
+                    type="button"
+                    class="address-card__btn address-card__btn--delete js-delete-address"
+                    data-id="{{ address.id }}"
+                    data-url="{{ routes.account_addresses_url }}/{{ address.id }}">
+                    Delete
+                  </button>
+                {%- endunless -%}
+              </div>
+
+              <!-- Inline Edit Form (hidden) -->
+              <div id="edit-address-{{ address.id }}" class="js-address-edit-form" style="display:none;margin-top:var(--space-6);padding-top:var(--space-6);border-top:1px solid var(--color-border-light);">
+                {%- form 'customer_address', address, id: 'edit-form-' | append: address.id -%}
+                  <input type="hidden" name="_method" value="put">
+                  {% render 'address-form-fields', address: address %}
+                  <div style="display:flex;gap:var(--space-3);margin-top:var(--space-4);">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="address-card__btn js-cancel-edit" data-id="{{ address.id }}">Cancel</button>
+                  </div>
+                {%- endform -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <!-- New Address Form (hidden) -->
+        <div id="new-address-form" style="display:none;margin-top:var(--space-8);">
+          <div class="account-card">
+            <div class="account-card__header">
+              <h3 class="account-card__title">Add New Address</h3>
+            </div>
+            <div class="account-card__body">
+              {%- form 'customer_address', customer.new_address, id: 'new-address-form-inner' -%}
+                {% render 'address-form-fields', address: customer.new_address %}
+                <div class="form-field" style="flex-direction:row;align-items:center;gap:var(--space-3);margin-top:var(--space-2);">
+                  <input type="checkbox" id="new-address-default" name="address[default]" value="1" style="width:auto;">
+                  <label for="new-address-default" style="font-weight:400;font-size:var(--text-sm);color:var(--color-text-secondary);">
+                    Set as default address
+                  </label>
+                </div>
+                <div style="display:flex;gap:var(--space-3);margin-top:var(--space-6);">
+                  <button type="submit" class="btn btn-primary btn-lg">Save Address</button>
+                  <button type="button" class="btn btn-ghost js-cancel-new-address">Cancel</button>
+                </div>
+              {%- endform -%}
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  /* Toggle new address form */
+  var newBtn = document.querySelector('.js-toggle-new-address');
+  var newForm = document.getElementById('new-address-form');
+  var cancelNew = document.querySelector('.js-cancel-new-address');
+
+  if (newBtn && newForm) {
+    newBtn.addEventListener('click', function () {
+      newForm.style.display = 'block';
+      newForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      newBtn.setAttribute('aria-expanded', 'true');
+    });
+  }
+  if (cancelNew) {
+    cancelNew.addEventListener('click', function () {
+      newForm.style.display = 'none';
+      if (newBtn) newBtn.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  /* Edit address forms */
+  document.querySelectorAll('.js-edit-address').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var form = document.getElementById('edit-address-' + btn.dataset.id);
+      if (form) {
+        form.style.display = form.style.display === 'none' ? 'block' : 'none';
+      }
+    });
+  });
+
+  document.querySelectorAll('.js-cancel-edit').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var form = document.getElementById('edit-address-' + btn.dataset.id);
+      if (form) form.style.display = 'none';
+    });
+  });
+
+  /* Delete address with confirmation */
+  document.querySelectorAll('.js-delete-address').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (!confirm('Remove this address?')) return;
+      var form = document.createElement('form');
+      form.method = 'post';
+      form.action = btn.dataset.url;
+      var method = document.createElement('input');
+      method.type = 'hidden';
+      method.name = '_method';
+      method.value = 'delete';
+      form.appendChild(method);
+      document.body.appendChild(form);
+      form.submit();
+    });
+  });
+
+  /* Set default address */
+  document.querySelectorAll('.js-set-default-address').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var form = document.createElement('form');
+      form.method = 'post';
+      form.action = btn.dataset.url;
+      var method = document.createElement('input');
+      method.type = 'hidden';
+      method.name = '_method';
+      method.value = 'put';
+      var def = document.createElement('input');
+      def.type = 'hidden';
+      def.name = 'address[default]';
+      def.value = '1';
+      form.appendChild(method);
+      form.appendChild(def);
+      document.body.appendChild(form);
+      form.submit();
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Customer Addresses",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Page heading",
+      "default": "Saved Addresses"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Manage the addresses used for delivery. Your default address is pre-filled at checkout."
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Customer Addresses"
+    }
+  ]
+}
+{% endschema %}

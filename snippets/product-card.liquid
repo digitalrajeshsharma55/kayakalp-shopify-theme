@@ -1,0 +1,158 @@
+{%- comment -%}
+  Renders a product card.
+  Usage:
+    {% render 'product-card', product: product, show_vendor: false %}
+  Variables:
+    product         — Shopify product object (required)
+    show_vendor     — show vendor label (optional, default: false)
+    lazy            — lazy-load image (optional, default: true)
+{%- endcomment -%}
+
+{%- liquid
+  assign lazy = lazy | default: true
+  assign loading = 'lazy'
+  if lazy == false
+    assign loading = 'eager'
+  endif
+
+  assign product_type_handle = product.type | handleize
+  assign card_class = 'product-card--' | append: product_type_handle
+
+  assign card_theme_class = ''
+  if card_theme != blank
+    assign card_theme_class = ' product-card--theme-' | append: card_theme
+  endif
+
+  assign savings_percent = 0
+  if product.compare_at_price > product.price
+    assign savings_raw = product.compare_at_price | minus: product.price
+    assign savings_percent = savings_raw | times: 100 | divided_by: product.compare_at_price
+  endif
+
+  assign badge_label = ''
+  assign badge_class = ''
+  if product.tags contains 'bestseller'
+    assign badge_label = 'Bestseller'
+    assign badge_class = 'badge--bestseller'
+  elsif product.tags contains 'trending'
+    assign badge_label = 'Trending'
+    assign badge_class = 'badge--trending'
+  elsif product.tags contains 'new'
+    assign badge_label = 'New'
+    assign badge_class = 'badge--new'
+  elsif product.tags contains 'hot'
+    assign badge_label = 'Hot'
+    assign badge_class = 'badge--hot'
+  elsif product.tags contains 'combo'
+    assign badge_label = 'Combo'
+    assign badge_class = 'badge--combo'
+  endif
+
+  assign benefit = product.metafields.kayakalp.benefit_short.value | default: ''
+  assign rating  = product.metafields.reviews.rating.value | default: '4.8'
+  assign rating_count = product.metafields.reviews.rating_count.value | default: ''
+-%}
+
+<article class="product-card {{ card_class }}{{ card_theme_class }}" aria-label="{{ product.title | escape }}">
+  <!-- Image Wrap -->
+  <div class="product-card__image-wrap">
+    <!-- Badge -->
+    {%- if badge_label != blank -%}
+      <span class="badge {{ badge_class }} product-card__badge">{{ badge_label }}</span>
+    {%- endif -%}
+
+    <!-- Wishlist -->
+    <button
+      class="product-card__wishlist js-wishlist-toggle"
+      aria-label="Add {{ product.title | escape }} to wishlist"
+      data-product-id="{{ product.id }}"
+    >
+      <span class="icon-heart" aria-hidden="true">♡</span>
+      <span class="icon-heart-filled" aria-hidden="true">♥</span>
+    </button>
+
+    <!-- Product Image -->
+    <a href="{{ product.url }}" tabindex="-1" aria-hidden="true">
+      {%- if product.featured_image -%}
+        <img
+          class="product-card__image"
+          src="{{ product.featured_image | img_url: '500x500' }}"
+          srcset="{{ product.featured_image | img_url: '300x300' }} 300w,
+                  {{ product.featured_image | img_url: '500x500' }} 500w,
+                  {{ product.featured_image | img_url: '700x700' }} 700w"
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          alt="{{ product.featured_image.alt | default: product.title | escape }}"
+          loading="{{ loading }}"
+          width="500" height="500">
+      {%- else -%}
+        <div class="product-card__image product-card__image--placeholder" aria-hidden="true"></div>
+      {%- endif -%}
+    </a>
+
+    <!-- Quick View Overlay -->
+    <div class="product-card__quickview" aria-hidden="true">
+      <button
+        class="product-card__quickview-btn js-quickview-trigger"
+        data-product-url="{{ product.url }}.js"
+        data-product-handle="{{ product.handle }}"
+        aria-label="Quick view {{ product.title | escape }}"
+      >
+        Quick View
+      </button>
+    </div>
+  </div>
+
+  <!-- Card Body -->
+  <div class="product-card__body">
+    <!-- Vendor (optional) -->
+    {%- if show_vendor -%}
+      <p class="product-card__vendor text-label" style="font-size:var(--text-xs);color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:var(--tracking-wide);">
+        {{ product.vendor }}
+      </p>
+    {%- endif -%}
+
+    <!-- Name -->
+    <h3 class="product-card__name">
+      <a href="{{ product.url }}">{{ product.title }}</a>
+    </h3>
+
+    <!-- Benefit line -->
+    {%- if benefit != blank -%}
+      <p class="product-card__benefit">{{ benefit }}</p>
+    {%- endif -%}
+
+    <!-- Rating -->
+    <div class="product-card__rating" aria-label="Rating: {{ rating }} out of 5">
+      <span class="product-card__stars" aria-hidden="true">★★★★★</span>
+      <span class="product-card__rating-val">{{ rating }}</span>
+      {%- if rating_count != blank -%}
+        <span class="product-card__review-count">({{ rating_count }})</span>
+      {%- endif -%}
+    </div>
+
+    <!-- Pricing -->
+    <div class="product-card__price-row">
+      <span class="product-card__price-sale">{{ product.price | money }}</span>
+      {%- if product.compare_at_price > product.price -%}
+        <span class="product-card__price-original">{{ product.compare_at_price | money }}</span>
+        {%- if savings_percent > 0 -%}
+          <span class="product-card__price-savings">{{ savings_percent }}% OFF</span>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+
+    <!-- CTA Buttons -->
+    <div class="product-card__cta">
+      <button
+        class="btn btn-dark btn-sm js-add-to-cart"
+        data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+        data-product-title="{{ product.title | escape }}"
+        aria-label="Add {{ product.title | escape }} to cart"
+        {%- unless product.available -%}disabled{%- endunless -%}
+      >
+        {%- if product.available -%}Add to Cart{%- else -%}Sold Out{%- endif -%}
+      </button>
+      <a href="{{ product.url }}" class="btn btn-ghost btn-sm">Details</a>
+    </div>
+  </div>
+</article>

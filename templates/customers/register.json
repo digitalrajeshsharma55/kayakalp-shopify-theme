@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "main": {
+      "type": "customer-register",
+      "blocks": {
+        "badge-1": { "type": "trust_badge", "settings": { "label": "🚚 Free Delivery ₹699+" } },
+        "badge-2": { "type": "trust_badge", "settings": { "label": "🔄 Easy Returns" } },
+        "badge-3": { "type": "trust_badge", "settings": { "label": "💵 COD Available" } }
+      },
+      "block_order": ["badge-1", "badge-2", "badge-3"],
+      "settings": {
+        "eyebrow": "✦ JOIN THE FAMILY",
+        "heading": "Create Your Kayakalp Account",
+        "subheading": "Join 2 lakh+ Indian families on their Ayurvedic wellness journey.",
+        "benefits": "Track your orders & reorder easily|Earn wellness points on every purchase|Get personalised Ayurvedic recommendations|Access exclusive member-only offers",
+        "show_consent_checkbox": true,
+        "consent_text": "Send me Ayurvedic wellness tips and exclusive offers via email.",
+        "visual_heading": "स्वस्थस्य स्वास्थ्य रक्षणम् — Protect the health of the healthy.",
+        "visual_subtext": "— Ashtanga Hridayam"
+      }
+    }
+  },
+  "order": ["main"]
+}

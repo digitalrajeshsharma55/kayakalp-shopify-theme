@@ -1,0 +1,289 @@
+{{ 'page-customer.css' | asset_url | stylesheet_tag }}
+
+<div class="account-page section">
+  <div class="container">
+    <div class="account-layout">
+
+      <!-- ── Sidebar ─────────────────────────────────────── -->
+      <aside class="account-sidebar">
+        <div class="account-sidebar__header">
+          <div class="account-sidebar__avatar" aria-hidden="true">
+            {{ customer.first_name | slice: 0 | upcase }}
+          </div>
+          <p class="account-sidebar__name">
+            {{ section.settings.greeting_prefix }} {{ customer.first_name }}!
+          </p>
+          <p class="account-sidebar__email">{{ customer.email }}</p>
+        </div>
+        <nav class="account-sidebar__nav" aria-label="Account navigation">
+          <a href="{{ routes.account_url }}" class="account-sidebar__link account-sidebar__link--active">
+            <span class="account-sidebar__link-icon">📦</span> My Orders
+          </a>
+          <a href="{{ routes.account_addresses_url }}" class="account-sidebar__link">
+            <span class="account-sidebar__link-icon">🏠</span> Saved Addresses
+          </a>
+          <a href="/pages/consult" class="account-sidebar__link">
+            <span class="account-sidebar__link-icon">💬</span> Talk to a Vaidya
+          </a>
+          <a href="/collections/all" class="account-sidebar__link">
+            <span class="account-sidebar__link-icon">🌿</span> Shop Products
+          </a>
+          <div class="account-sidebar__logout">
+            <a href="{{ routes.account_logout_url }}" class="account-sidebar__link">
+              <span class="account-sidebar__link-icon">🚪</span> Sign Out
+            </a>
+          </div>
+        </nav>
+      </aside>
+
+      <!-- ── Main Content ────────────────────────────────── -->
+      <main>
+
+        <!-- Wellness Tip -->
+        {%- if section.settings.show_wellness_tip and section.settings.wellness_tip != blank -%}
+          <div class="wellness-tip">
+            <span class="wellness-tip__icon">🌿</span>
+            <div class="wellness-tip__content">
+              <p class="wellness-tip__label">Today's Ayurvedic Tip</p>
+              <p class="wellness-tip__text">{{ section.settings.wellness_tip }}</p>
+            </div>
+          </div>
+        {%- endif -%}
+
+        <!-- Stats -->
+        <div class="account-stats">
+          <div class="account-stat">
+            <div class="account-stat__number">{{ customer.orders_count }}</div>
+            <div class="account-stat__label">Orders</div>
+          </div>
+          <div class="account-stat">
+            <div class="account-stat__number">{{ customer.total_spent | money_without_trailing_zeros }}</div>
+            <div class="account-stat__label">Total Spent</div>
+          </div>
+          <div class="account-stat">
+            <div class="account-stat__number">
+              {%- if customer.addresses_count > 0 -%}
+                {{ customer.addresses_count }}
+              {%- else -%}
+                0
+              {%- endif -%}
+            </div>
+            <div class="account-stat__label">Addresses</div>
+          </div>
+        </div>
+
+        <!-- Orders Card -->
+        <div class="account-card">
+          <div class="account-card__header">
+            <h2 class="account-card__title">Order History</h2>
+            {%- if customer.orders_count > 5 -%}
+              <a href="{{ routes.account_url }}?page=2" class="account-card__action">View all →</a>
+            {%- endif -%}
+          </div>
+          <div class="account-card__body" style="padding:0;">
+            {%- if customer.orders.size > 0 -%}
+
+              <!-- Mobile: stacked order cards -->
+              <div class="orders-mobile" style="padding:var(--space-4);">
+                {%- for order in customer.orders limit: 10 -%}
+                  <div class="order-card-mobile">
+                    <div class="order-card-mobile__row">
+                      <span class="order-card-mobile__label">Order</span>
+                      <a href="{{ order.customer_url }}" class="orders-table__order-link">
+                        {{ order.name }}
+                      </a>
+                    </div>
+                    <div class="order-card-mobile__row">
+                      <span class="order-card-mobile__label">Date</span>
+                      <span>{{ order.created_at | date: "%d %b %Y" }}</span>
+                    </div>
+                    <div class="order-card-mobile__row">
+                      <span class="order-card-mobile__label">Items</span>
+                      <span>{{ order.line_items.size }}</span>
+                    </div>
+                    <div class="order-card-mobile__row">
+                      <span class="order-card-mobile__label">Total</span>
+                      <span style="font-weight:700;color:var(--color-primary);">{{ order.total_price | money }}</span>
+                    </div>
+                    <div class="order-card-mobile__row" style="margin-top:var(--space-2);">
+                      <span class="order-status order-status--{{ order.financial_status }}">
+                        {{ order.financial_status | capitalize }}
+                      </span>
+                      <span class="order-status order-status--{{ order.fulfillment_status }}">
+                        {{ order.fulfillment_status | default: 'Unfulfilled' | capitalize }}
+                      </span>
+                    </div>
+                  </div>
+                {%- endfor -%}
+              </div>
+
+              <!-- Desktop: table -->
+              <div class="orders-desktop">
+                <table class="orders-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Order</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Items</th>
+                      <th scope="col">Payment</th>
+                      <th scope="col">Fulfillment</th>
+                      <th scope="col" style="text-align:right;">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {%- for order in customer.orders limit: 10 -%}
+                      <tr>
+                        <td>
+                          <a href="{{ order.customer_url }}" class="orders-table__order-link">
+                            {{ order.name }}
+                          </a>
+                        </td>
+                        <td>{{ order.created_at | date: "%d %b %Y" }}</td>
+                        <td>{{ order.line_items.size }} item{%- if order.line_items.size != 1 -%}s{%- endif -%}</td>
+                        <td>
+                          <span class="order-status order-status--{{ order.financial_status }}">
+                            {{ order.financial_status | capitalize }}
+                          </span>
+                        </td>
+                        <td>
+                          <span class="order-status order-status--{{ order.fulfillment_status }}">
+                            {{ order.fulfillment_status | default: 'Unfulfilled' | capitalize }}
+                          </span>
+                        </td>
+                        <td style="text-align:right;font-weight:700;color:var(--color-primary);">
+                          {{ order.total_price | money }}
+                        </td>
+                      </tr>
+                    {%- endfor -%}
+                  </tbody>
+                </table>
+              </div>
+
+            {%- else -%}
+              <div class="orders-empty">
+                <div class="orders-empty__icon">📦</div>
+                <h3 class="orders-empty__title">No orders yet</h3>
+                <p class="orders-empty__text">Your order history will appear here once you make a purchase.</p>
+                <a href="/collections/all" class="btn btn-primary">Start Shopping</a>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+
+        <!-- Account Details Card -->
+        <div class="account-card">
+          <div class="account-card__header">
+            <h2 class="account-card__title">Account Details</h2>
+          </div>
+          <div class="account-card__body">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);">
+              <div>
+                <p style="font-family:var(--font-label);font-size:var(--text-xs);text-transform:uppercase;letter-spacing:var(--tracking-wide);color:var(--color-text-secondary);margin-bottom:var(--space-2);">Name</p>
+                <p style="font-size:var(--text-base);color:var(--color-text-primary);">{{ customer.name }}</p>
+              </div>
+              <div>
+                <p style="font-family:var(--font-label);font-size:var(--text-xs);text-transform:uppercase;letter-spacing:var(--tracking-wide);color:var(--color-text-secondary);margin-bottom:var(--space-2);">Email</p>
+                <p style="font-size:var(--text-base);color:var(--color-text-primary);">{{ customer.email }}</p>
+              </div>
+              {%- if customer.default_address -%}
+                <div style="grid-column:span 2;">
+                  <p style="font-family:var(--font-label);font-size:var(--text-xs);text-transform:uppercase;letter-spacing:var(--tracking-wide);color:var(--color-text-secondary);margin-bottom:var(--space-2);">Default Address</p>
+                  <address style="font-style:normal;font-size:var(--text-sm);color:var(--color-text-secondary);line-height:var(--leading-relaxed);">
+                    {{ customer.default_address.name }}<br>
+                    {{ customer.default_address.address1 }}<br>
+                    {%- if customer.default_address.address2 != blank -%}
+                      {{ customer.default_address.address2 }}<br>
+                    {%- endif -%}
+                    {{ customer.default_address.city }}, {{ customer.default_address.province }} {{ customer.default_address.zip }}<br>
+                    {{ customer.default_address.country }}
+                  </address>
+                </div>
+              {%- endif -%}
+            </div>
+            <div style="margin-top:var(--space-6);">
+              <a href="{{ routes.account_addresses_url }}" class="btn btn-ghost">Manage Addresses</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Custom blocks (e.g., referral, loyalty banner) -->
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'promo_banner' -%}
+            <div class="account-card" style="background:var(--color-bg-herb);border-color:rgba(44,74,30,0.2);" {{ block.shopify_attributes }}>
+              <div class="account-card__body" style="text-align:center;padding:var(--space-8);">
+                <p style="font-size:2rem;margin-bottom:var(--space-3);">{{ block.settings.icon }}</p>
+                <h3 style="font-family:var(--font-heading);font-size:var(--text-xl);color:var(--color-primary);margin-bottom:var(--space-3);">
+                  {{ block.settings.heading }}
+                </h3>
+                <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin-bottom:var(--space-6);max-width:400px;margin-inline:auto;">
+                  {{ block.settings.text }}
+                </p>
+                {%- if block.settings.cta_label != blank -%}
+                  <a href="{{ block.settings.cta_url }}" class="btn btn-secondary">{{ block.settings.cta_label }}</a>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+
+      </main>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Customer Account",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "greeting_prefix",
+      "label": "Greeting prefix",
+      "default": "Namaste,"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_wellness_tip",
+      "label": "Show daily Ayurvedic tip",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "wellness_tip",
+      "label": "Wellness tip text",
+      "default": "Start your morning with warm water infused with Triphala for digestive health. Consistency is the key to Ayurvedic healing."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "promo_banner",
+      "name": "Promo Banner",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon", "default": "🌿" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Get a Free Consultation" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Not sure which product is right for you? Talk to our Vaidya for free." },
+        { "type": "text", "id": "cta_label", "label": "CTA Label", "default": "Chat on WhatsApp" },
+        { "type": "url", "id": "cta_url", "label": "CTA URL" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer Account",
+      "blocks": [
+        {
+          "type": "promo_banner",
+          "settings": {
+            "icon": "💬",
+            "heading": "Need Help Choosing?",
+            "text": "Our Vaidyas are available Mon–Sat, 10am–7pm for free personalised consultations.",
+            "cta_label": "Get Free Consultation →"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

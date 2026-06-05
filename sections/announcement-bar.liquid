@@ -1,0 +1,70 @@
+{% if section.settings.show_announcement %}
+<div class="announcement-bar" role="region" aria-label="Announcements">
+  <div class="announcement-bar__inner">
+    <!-- Mobile: marquee -->
+    <div class="announcement-bar__marquee-wrap" aria-hidden="true">
+      <div class="announcement-bar__marquee">
+        <span class="announcement-bar__track">
+          {%- for i in (1..4) -%}
+            🌿 {{ section.settings.text_1 }} &nbsp;•&nbsp; {{ section.settings.text_2 }} &nbsp;•&nbsp; {{ section.settings.text_3 }} &nbsp;•&nbsp; {{ section.settings.text_4 }} &nbsp;&nbsp;&nbsp;
+          {%- endfor -%}
+        </span>
+      </div>
+    </div>
+
+    <!-- Desktop: static centered -->
+    <div class="announcement-bar__static">
+      🌿 {{ section.settings.text_1 }}
+      <span class="announcement-bar__divider">•</span>
+      {{ section.settings.text_2 }}
+      <span class="announcement-bar__divider">•</span>
+      {{ section.settings.text_3 }}
+      <span class="announcement-bar__divider">•</span>
+      {{ section.settings.text_4 }} 🌿
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show announcement bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "text_1",
+      "label": "Message 1",
+      "default": "Free Delivery Above ₹699"
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "Message 2",
+      "default": "Trusted by 2 Lakh+ Families"
+    },
+    {
+      "type": "text",
+      "id": "text_3",
+      "label": "Message 3",
+      "default": "100% Natural Ingredients"
+    },
+    {
+      "type": "text",
+      "id": "text_4",
+      "label": "Message 4",
+      "default": "Use code WELCOME10 for 10% Off"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Bar"
+    }
+  ]
+}
+{% endschema %}

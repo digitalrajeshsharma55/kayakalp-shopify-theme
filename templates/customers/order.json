@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": {
+      "type": "customer-order",
+      "settings": {
+        "heading_prefix": "Order",
+        "show_whatsapp_support": true,
+        "whatsapp_number": "919876543210",
+        "whatsapp_support_heading": "Need help with this order?",
+        "whatsapp_support_text": "Our team is here Mon–Sat, 10am–7pm. We'll resolve any issue within 24 hours.",
+        "whatsapp_message": "Namaste! I need help with my order {ORDER}."
+      }
+    }
+  },
+  "order": ["main"]
+}

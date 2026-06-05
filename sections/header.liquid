@@ -1,0 +1,306 @@
+{% assign nav_main = linklists[section.settings.main_menu] %}
+
+<header class="site-header js-site-header" role="banner">
+  <div class="site-header__inner container">
+
+    <!-- Left: Hamburger + Phone -->
+    <div class="site-header__left">
+      <button class="site-header__hamburger js-menu-open" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+      {% if section.settings.phone != blank %}
+        <a href="tel:{{ section.settings.phone | remove: ' ' | remove: '-' }}" class="site-header__phone" aria-label="Call us">
+          📞 {{ section.settings.phone }}
+        </a>
+      {% endif %}
+    </div>
+
+    <!-- Center: Logo -->
+    <div class="site-header__logo">
+      <a href="/" aria-label="{{ shop.name }} — Home">
+        {% if section.settings.logo != blank %}
+          <img
+            class="site-header__logo-img site-header__logo-img--dark"
+            src="{{ section.settings.logo | img_url: '300x' }}"
+            alt="{{ shop.name }}"
+            width="150" height="50"
+            loading="eager">
+          {% if section.settings.logo_light != blank %}
+            <img
+              class="site-header__logo-img site-header__logo-img--light"
+              src="{{ section.settings.logo_light | img_url: '300x' }}"
+              alt="{{ shop.name }}"
+              width="150" height="50"
+              loading="eager">
+          {% endif %}
+        {% else %}
+          <span class="site-header__logo-text">{{ shop.name }}</span>
+        {% endif %}
+      </a>
+    </div>
+
+    <!-- Right: Search, Language, Account, Cart -->
+    <div class="site-header__right">
+      <!-- Search -->
+      <button class="btn-icon js-search-open" aria-label="Search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+      </button>
+
+      <!-- Language Toggle -->
+      <button class="site-header__lang js-lang-toggle" aria-label="Toggle language" data-lang="{{ section.settings.default_lang | default: 'EN' }}">
+        <span class="site-header__lang-label">{{ section.settings.default_lang | default: 'EN' }}</span>
+      </button>
+
+      <!-- Account -->
+      <a href="/account" class="btn-icon" aria-label="Account">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        </svg>
+      </a>
+
+      <!-- Cart -->
+      <button class="site-header__cart js-cart-open" aria-label="Cart">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <span class="site-header__cart-count js-cart-count" aria-label="cart items" style="display:none;">{{ cart.item_count }}</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Desktop Navigation -->
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="container">
+      <ul class="site-nav__list" role="list">
+        <li class="site-nav__item">
+          <a href="/" class="site-nav__link{% if request.path == '/' %} site-nav__link--active{% endif %}">Home</a>
+        </li>
+
+        <!-- Products Mega Menu -->
+        <li class="site-nav__item site-nav__item--has-dropdown">
+          <button class="site-nav__link site-nav__link--dropdown" aria-expanded="false" aria-haspopup="true">
+            Products
+            <svg class="site-nav__chevron" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="site-nav__mega" role="region">
+            <div class="site-nav__mega-inner container">
+              <div class="site-nav__mega-grid">
+                <a href="/collections/hair-care" class="site-nav__mega-item">
+                  <span class="site-nav__mega-icon">🌿</span>
+                  <div>
+                    <strong>Hair Care</strong>
+                    <small>Oils, serums & masks</small>
+                  </div>
+                </a>
+                <a href="/collections/skin-care" class="site-nav__mega-item">
+                  <span class="site-nav__mega-icon">✨</span>
+                  <div>
+                    <strong>Skin Care</strong>
+                    <small>Kumkumadi & more</small>
+                  </div>
+                </a>
+                <a href="/collections/digestive-health" class="site-nav__mega-item">
+                  <span class="site-nav__mega-icon">🌱</span>
+                  <div>
+                    <strong>Digestive Health</strong>
+                    <small>Churnas & tablets</small>
+                  </div>
+                </a>
+                <a href="/collections/joint-bone" class="site-nav__mega-item">
+                  <span class="site-nav__mega-icon">💪</span>
+                  <div>
+                    <strong>Joint & Bone</strong>
+                    <small>Oils & capsules</small>
+                  </div>
+                </a>
+                <a href="/collections/immunity" class="site-nav__mega-item">
+                  <span class="site-nav__mega-icon">🛡️</span>
+                  <div>
+                    <strong>Immunity</strong>
+                    <small>Ashwagandha, Giloy & more</small>
+                  </div>
+                </a>
+                <a href="/collections/womens-wellness" class="site-nav__mega-item">
+                  <span class="site-nav__mega-icon">🌸</span>
+                  <div>
+                    <strong>Women's Wellness</strong>
+                    <small>Shatavari & more</small>
+                  </div>
+                </a>
+                <a href="/collections/mens-vitality" class="site-nav__mega-item">
+                  <span class="site-nav__mega-icon">⚡</span>
+                  <div>
+                    <strong>Men's Vitality</strong>
+                    <small>Shilajit & Ashwagandha</small>
+                  </div>
+                </a>
+                <a href="/collections/all" class="site-nav__mega-item site-nav__mega-item--all">
+                  <span class="site-nav__mega-icon">→</span>
+                  <div>
+                    <strong>View All Products</strong>
+                    <small>Full catalogue</small>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <!-- Conditions Dropdown -->
+        <li class="site-nav__item site-nav__item--has-dropdown">
+          <button class="site-nav__link site-nav__link--dropdown" aria-expanded="false" aria-haspopup="true">
+            Conditions
+            <svg class="site-nav__chevron" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="site-nav__dropdown" role="region">
+            <ul>
+              <li><a href="/collections/hair-fall" class="site-nav__dropdown-link">Hair Fall</a></li>
+              <li><a href="/collections/dandruff" class="site-nav__dropdown-link">Dandruff</a></li>
+              <li><a href="/collections/eczema" class="site-nav__dropdown-link">Eczema</a></li>
+              <li><a href="/collections/arthritis" class="site-nav__dropdown-link">Arthritis</a></li>
+              <li><a href="/collections/diabetes-support" class="site-nav__dropdown-link">Diabetes Support</a></li>
+              <li><a href="/collections/pcos" class="site-nav__dropdown-link">PCOS</a></li>
+              <li><a href="/collections/liver-health" class="site-nav__dropdown-link">Liver Health</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="site-nav__item">
+          <a href="/pages/ingredients" class="site-nav__link">Ingredients</a>
+        </li>
+        <li class="site-nav__item">
+          <a href="/pages/our-story" class="site-nav__link">Our Story</a>
+        </li>
+        <li class="site-nav__item">
+          <a href="/pages/consult" class="site-nav__link site-nav__link--cta">Consult a Vaidya</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Mobile menu" aria-hidden="true">
+  <div class="mobile-menu__header">
+    <span class="mobile-menu__logo">{{ shop.name }}</span>
+    <button class="mobile-menu__close js-menu-close" aria-label="Close menu">✕</button>
+  </div>
+
+  <nav class="mobile-menu__nav" aria-label="Mobile navigation">
+    <ul class="mobile-menu__list" role="list">
+      <li class="mobile-menu__item">
+        <a href="/" class="mobile-menu__link">Home</a>
+      </li>
+      <li class="mobile-menu__item mobile-menu__item--has-sub">
+        <button class="mobile-menu__link mobile-menu__link--parent js-mobile-accordion" aria-expanded="false">
+          Products
+          <svg class="mobile-menu__chevron" width="16" height="16" viewBox="0 0 12 12" aria-hidden="true">
+            <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <ul class="mobile-menu__sub" aria-hidden="true">
+          <li><a href="/collections/hair-care" class="mobile-menu__sub-link">🌿 Hair Care</a></li>
+          <li><a href="/collections/skin-care" class="mobile-menu__sub-link">✨ Skin Care</a></li>
+          <li><a href="/collections/digestive-health" class="mobile-menu__sub-link">🌱 Digestive Health</a></li>
+          <li><a href="/collections/joint-bone" class="mobile-menu__sub-link">💪 Joint & Bone</a></li>
+          <li><a href="/collections/immunity" class="mobile-menu__sub-link">🛡️ Immunity</a></li>
+          <li><a href="/collections/womens-wellness" class="mobile-menu__sub-link">🌸 Women's Wellness</a></li>
+          <li><a href="/collections/mens-vitality" class="mobile-menu__sub-link">⚡ Men's Vitality</a></li>
+          <li><a href="/collections/all" class="mobile-menu__sub-link">→ All Products</a></li>
+        </ul>
+      </li>
+      <li class="mobile-menu__item mobile-menu__item--has-sub">
+        <button class="mobile-menu__link mobile-menu__link--parent js-mobile-accordion" aria-expanded="false">
+          Conditions
+          <svg class="mobile-menu__chevron" width="16" height="16" viewBox="0 0 12 12" aria-hidden="true">
+            <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <ul class="mobile-menu__sub" aria-hidden="true">
+          <li><a href="/collections/hair-fall" class="mobile-menu__sub-link">Hair Fall</a></li>
+          <li><a href="/collections/dandruff" class="mobile-menu__sub-link">Dandruff</a></li>
+          <li><a href="/collections/eczema" class="mobile-menu__sub-link">Eczema</a></li>
+          <li><a href="/collections/arthritis" class="mobile-menu__sub-link">Arthritis</a></li>
+          <li><a href="/collections/diabetes-support" class="mobile-menu__sub-link">Diabetes Support</a></li>
+          <li><a href="/collections/pcos" class="mobile-menu__sub-link">PCOS</a></li>
+          <li><a href="/collections/liver-health" class="mobile-menu__sub-link">Liver Health</a></li>
+        </ul>
+      </li>
+      <li class="mobile-menu__item">
+        <a href="/pages/ingredients" class="mobile-menu__link">Ingredients</a>
+      </li>
+      <li class="mobile-menu__item">
+        <a href="/pages/our-story" class="mobile-menu__link">Our Story</a>
+      </li>
+      <li class="mobile-menu__item">
+        <a href="/pages/consult" class="mobile-menu__link mobile-menu__link--highlight">✦ Consult a Vaidya</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="mobile-menu__footer">
+    {% if section.settings.phone != blank %}
+      <a href="tel:{{ section.settings.phone | remove: ' ' | remove: '-' }}" class="btn btn-ghost-light btn-sm">📞 {{ section.settings.phone }}</a>
+    {% endif %}
+    {% if section.settings.whatsapp_number != blank %}
+      <a href="https://wa.me/{{ section.settings.whatsapp_number }}" target="_blank" rel="noopener" class="btn btn-whatsapp btn-sm">Chat on WhatsApp</a>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo (dark)"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_light",
+      "label": "Logo (light, for scrolled state)"
+    },
+    {
+      "type": "link_list",
+      "id": "main_menu",
+      "label": "Main menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone number",
+      "default": "+91 98765 43210"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_number",
+      "label": "WhatsApp number (with country code, no +)",
+      "default": "919876543210"
+    },
+    {
+      "type": "select",
+      "id": "default_lang",
+      "label": "Default language label",
+      "options": [
+        { "value": "EN", "label": "English (EN)" },
+        { "value": "HI", "label": "Hindi (HI)" }
+      ],
+      "default": "EN"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header"
+    }
+  ]
+}
+{% endschema %}

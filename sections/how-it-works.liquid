@@ -1,0 +1,142 @@
+{{ 'section-process.css' | asset_url | stylesheet_tag }}
+
+<section class="section section-dark how-it-works mandala-bg">
+  <div class="container">
+    <div class="section-header" data-animate>
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="section-eyebrow">✦ {{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h2 class="section-title text-gold">{{ section.settings.heading }}</h2>
+      {%- if section.settings.subheading != blank -%}
+        <p class="section-subtitle" style="color:rgba(245,240,232,0.75);">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="steps-grid" role="list">
+      {%- for block in section.blocks -%}
+        <div
+          class="step"
+          role="listitem"
+          data-animate
+          data-animate-delay="{{ forloop.index }}"
+          {{ block.shopify_attributes }}
+        >
+          <!-- Connector line (between steps, not after last) -->
+          {%- unless forloop.last -%}
+            <div class="step__connector" aria-hidden="true"></div>
+          {%- endunless -%}
+
+          <div class="step__icon-wrap">
+            <span class="step__icon" aria-hidden="true">{{ block.settings.icon }}</span>
+            <span class="step__number" aria-hidden="true">{{ forloop.index }}</span>
+          </div>
+
+          <h3 class="step__title">{{ block.settings.title }}</h3>
+          <p class="step__desc">{{ block.settings.description }}</p>
+
+          {%- if block.settings.cta_label != blank -%}
+            <a href="{{ block.settings.cta_url | default: '/pages/consult' }}" class="btn-arrow step__cta">
+              {{ block.settings.cta_label }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "How It Works",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "YOUR WELLNESS JOURNEY"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Your Wellness Journey"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Three simple steps to lasting Ayurvedic wellness"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon (emoji)",
+          "default": "💬"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Step title",
+          "default": "Consult"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Free Vaidya Chat — tell us your concern, get expert guidance."
+        },
+        {
+          "type": "text",
+          "id": "cta_label",
+          "label": "CTA label (optional)"
+        },
+        {
+          "type": "url",
+          "id": "cta_url",
+          "label": "CTA URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "How It Works",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "icon": "💬",
+            "title": "Consult",
+            "description": "Free Vaidya Chat — tell us your concern, get expert guidance.",
+            "cta_label": "Chat Now →",
+            "cta_url": "/pages/consult"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "icon": "🌿",
+            "title": "Choose",
+            "description": "We recommend the right formula based on your Prakriti and concern."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "icon": "✨",
+            "title": "Transform",
+            "description": "See real results in 4–8 weeks with consistent Ayurvedic rituals."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

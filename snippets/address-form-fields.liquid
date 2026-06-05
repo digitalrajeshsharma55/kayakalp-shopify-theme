@@ -1,0 +1,125 @@
+{%- comment -%}
+  Render address form fields.
+  Usage: {% render 'address-form-fields', address: address %}
+{%- endcomment -%}
+
+<div class="form-field__row">
+  <div class="form-field">
+    <label for="address-first-name-{{ address.id }}">First Name</label>
+    <input
+      type="text"
+      id="address-first-name-{{ address.id }}"
+      name="address[first_name]"
+      value="{{ address.first_name | escape }}"
+      autocomplete="given-name"
+      placeholder="Priya">
+  </div>
+  <div class="form-field">
+    <label for="address-last-name-{{ address.id }}">Last Name</label>
+    <input
+      type="text"
+      id="address-last-name-{{ address.id }}"
+      name="address[last_name]"
+      value="{{ address.last_name | escape }}"
+      autocomplete="family-name"
+      placeholder="Sharma">
+  </div>
+</div>
+
+<div class="form-field">
+  <label for="address-company-{{ address.id }}">Company (Optional)</label>
+  <input
+    type="text"
+    id="address-company-{{ address.id }}"
+    name="address[company]"
+    value="{{ address.company | escape }}"
+    autocomplete="organization"
+    placeholder="Your company name">
+</div>
+
+<div class="form-field">
+  <label for="address1-{{ address.id }}">Address Line 1 <span aria-hidden="true">*</span></label>
+  <input
+    type="text"
+    id="address1-{{ address.id }}"
+    name="address[address1]"
+    value="{{ address.address1 | escape }}"
+    autocomplete="address-line1"
+    required
+    placeholder="Flat / House / Building">
+</div>
+
+<div class="form-field">
+  <label for="address2-{{ address.id }}">Address Line 2</label>
+  <input
+    type="text"
+    id="address2-{{ address.id }}"
+    name="address[address2]"
+    value="{{ address.address2 | escape }}"
+    autocomplete="address-line2"
+    placeholder="Street, Area, Locality">
+</div>
+
+<div class="form-field__row">
+  <div class="form-field">
+    <label for="address-city-{{ address.id }}">City <span aria-hidden="true">*</span></label>
+    <input
+      type="text"
+      id="address-city-{{ address.id }}"
+      name="address[city]"
+      value="{{ address.city | escape }}"
+      autocomplete="address-level2"
+      required
+      placeholder="Mumbai">
+  </div>
+  <div class="form-field">
+    <label for="address-zip-{{ address.id }}">PIN Code <span aria-hidden="true">*</span></label>
+    <input
+      type="text"
+      id="address-zip-{{ address.id }}"
+      name="address[zip]"
+      value="{{ address.zip | escape }}"
+      autocomplete="postal-code"
+      required
+      pattern="[0-9]{6}"
+      maxlength="6"
+      placeholder="400001">
+  </div>
+</div>
+
+<div class="form-field">
+  <label for="address-province-{{ address.id }}">State <span aria-hidden="true">*</span></label>
+  <select
+    id="address-province-{{ address.id }}"
+    name="address[province]"
+    required>
+    <option value="">Select State</option>
+    {%- for country in all_country_option_tags -%}
+      {%- comment -%}Province options are injected by Shopify{%- endcomment -%}
+    {%- endfor -%}
+    {%- assign india_provinces = "Andaman and Nicobar Islands,Andhra Pradesh,Arunachal Pradesh,Assam,Bihar,Chandigarh,Chhattisgarh,Dadra and Nagar Haveli and Daman and Diu,Delhi,Goa,Gujarat,Haryana,Himachal Pradesh,Jammu and Kashmir,Jharkhand,Karnataka,Kerala,Ladakh,Lakshadweep,Madhya Pradesh,Maharashtra,Manipur,Meghalaya,Mizoram,Nagaland,Odisha,Puducherry,Punjab,Rajasthan,Sikkim,Tamil Nadu,Telangana,Tripura,Uttar Pradesh,Uttarakhand,West Bengal" | split: "," -%}
+    {%- for province in india_provinces -%}
+      <option value="{{ province }}" {%- if address.province == province -%} selected {%- endif -%}>{{ province }}</option>
+    {%- endfor -%}
+  </select>
+</div>
+
+<div class="form-field">
+  <label for="address-country-{{ address.id }}">Country</label>
+  <select
+    id="address-country-{{ address.id }}"
+    name="address[country]">
+    {{ country_option_tags }}
+  </select>
+</div>
+
+<div class="form-field">
+  <label for="address-phone-{{ address.id }}">Phone</label>
+  <input
+    type="tel"
+    id="address-phone-{{ address.id }}"
+    name="address[phone]"
+    value="{{ address.phone | escape }}"
+    autocomplete="tel"
+    placeholder="+91 XXXXX XXXXX">
+</div>

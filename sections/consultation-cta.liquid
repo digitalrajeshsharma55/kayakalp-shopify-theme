@@ -1,0 +1,169 @@
+<section class="section consultation-cta">
+  <div class="container">
+    <div class="consultation-cta__inner" data-animate>
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="section-eyebrow">✦ {{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h2 class="consultation-cta__heading">{{ section.settings.heading }}</h2>
+      <p class="consultation-cta__subtext">{{ section.settings.subtext }}</p>
+      <p class="consultation-cta__hours">{{ section.settings.hours }}</p>
+
+      <div class="consultation-cta__buttons">
+        {%- if section.settings.whatsapp_number != blank -%}
+          <a
+            href="https://wa.me/{{ section.settings.whatsapp_number }}?text={{ section.settings.whatsapp_message | url_encode }}"
+            class="btn btn-whatsapp btn-lg"
+            target="_blank"
+            rel="noopener"
+            data-whatsapp-link
+          >
+            Chat on WhatsApp
+          </a>
+        {%- endif -%}
+        {%- if section.settings.phone != blank -%}
+          <a href="tel:{{ section.settings.phone | remove: ' ' | remove: '-' }}" class="btn btn-dark btn-lg">
+            📞 Call Us Free
+          </a>
+        {%- endif -%}
+        {%- if section.settings.consult_url != blank -%}
+          <a href="{{ section.settings.consult_url }}" class="btn btn-ghost btn-lg">
+            📧 Book a Consultation
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.consultation-cta {
+  background: linear-gradient(135deg, var(--color-accent-saffron) 0%, var(--color-accent-gold) 50%, var(--color-accent-copper) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.consultation-cta::before {
+  content: '';
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.1);
+  top: -200px; right: -100px;
+  pointer-events: none;
+}
+.consultation-cta::after {
+  content: '';
+  position: absolute;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.07);
+  bottom: -100px; left: -50px;
+  pointer-events: none;
+}
+.consultation-cta__inner {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.consultation-cta__heading {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  color: var(--color-bg-dark);
+  margin-bottom: var(--space-4);
+  line-height: var(--leading-snug);
+}
+@media (min-width: 768px) {
+  .consultation-cta__heading { font-size: var(--text-3xl); }
+}
+.consultation-cta__subtext {
+  font-family: var(--font-subheading);
+  font-style: italic;
+  font-size: var(--text-md);
+  color: rgba(28, 46, 20, 0.8);
+  margin-bottom: var(--space-2);
+}
+.consultation-cta__hours {
+  font-family: var(--font-label);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: rgba(28, 46, 20, 0.65);
+  margin-bottom: var(--space-8);
+}
+.consultation-cta__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  justify-content: center;
+  align-items: center;
+}
+.consultation-cta .btn-ghost {
+  border-color: var(--color-bg-dark);
+  color: var(--color-bg-dark);
+}
+.consultation-cta .btn-ghost:hover {
+  background: var(--color-bg-dark);
+  color: var(--color-text-gold);
+}
+.consultation-cta .btn-dark {
+  background: var(--color-bg-dark);
+}
+</style>
+
+{% schema %}
+{
+  "name": "Consultation CTA",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "FREE CONSULTATION"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Not Sure Where to Start?"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Our Ayurvedic experts are available Mon–Sat, 10am–7pm"
+    },
+    {
+      "type": "text",
+      "id": "hours",
+      "label": "Hours note",
+      "default": "Mon – Sat  ·  10:00 AM – 7:00 PM IST"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_number",
+      "label": "WhatsApp number (with country code, no +)",
+      "default": "919876543210"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_message",
+      "label": "Pre-filled WhatsApp message",
+      "default": "Namaste! I'd like a free Ayurvedic consultation."
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone number",
+      "default": "+91 98765 43210"
+    },
+    {
+      "type": "url",
+      "id": "consult_url",
+      "label": "Consultation page URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Consultation CTA"
+    }
+  ]
+}
+{% endschema %}

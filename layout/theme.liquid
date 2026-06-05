@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#2C4A1E">
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif %}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif %}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content="{{ shop.name }}">
+    <meta property="og:title" content="{{ page_title | escape }}">
+    {% if page_description %}
+      <meta property="og:description" content="{{ page_description | escape }}">
+    {% endif %}
+    {% if request.path == '/' %}
+      <meta property="og:type" content="website">
+    {% elsif template contains 'product' %}
+      <meta property="og:type" content="product">
+      {% if product.featured_image %}
+        <meta property="og:image" content="{{ product.featured_image | img_url: '1200x' }}">
+      {% endif %}
+    {% endif %}
+
+    <!-- Favicon -->
+    {% if settings.favicon != blank %}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | img_url: '32x32' }}">
+    {% endif %}
+
+    <!-- Font Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Hind:wght@400;500;600&family=DM+Sans:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Hero image preload -->
+    {% if template.name == 'index' %}
+      <link rel="preload" as="image" href="{{ settings.hero_slide_1_image | default: '' | img_url: '1440x' }}">
+    {% endif %}
+
+    <!-- Global CSS -->
+    {{ 'application.css' | asset_url | stylesheet_tag }}
+    {{ 'component-button.css' | asset_url | stylesheet_tag }}
+    {{ 'component-badge.css' | asset_url | stylesheet_tag }}
+    {{ 'component-toast.css' | asset_url | stylesheet_tag }}
+    {{ 'component-modal.css' | asset_url | stylesheet_tag }}
+    {{ 'component-card.css' | asset_url | stylesheet_tag }}
+    {{ 'layout-header.css' | asset_url | stylesheet_tag }}
+    {{ 'layout-footer.css' | asset_url | stylesheet_tag }}
+
+    <!-- Customer pages CSS (loaded only on customer templates) -->
+    {%- if template contains 'customers' -%}
+      {{ 'page-customer.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
+
+    <!-- Content for Head (from sections) -->
+    {{ content_for_header }}
+  </head>
+
+  <body class="template-{{ template.name | handle }}{% if settings.animations_enabled %} animations-enabled{% endif %}">
+
+    <!-- Skip to content -->
+    <a href="#main-content" class="sr-only skip-link">Skip to content</a>
+
+    <!-- Overlay (mobile menu + drawers) -->
+    <div class="overlay js-overlay" role="presentation" aria-hidden="true"></div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="false"></div>
+
+    <!-- Announcement Bar -->
+    {% section 'announcement-bar' %}
+
+    <!-- Header -->
+    {% section 'header' %}
+
+    <!-- Main Content -->
+    <main id="main-content" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    <!-- Footer -->
+    {% section 'footer' %}
+
+    <!-- WhatsApp Float -->
+    {% unless template == 'cart' or template contains 'checkout' %}
+      {% render 'whatsapp-float' %}
+    {% endunless %}
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top js-scroll-top" aria-label="Back to top" title="Back to top">↑</button>
+
+    <!-- Cart Drawer HTML -->
+    <div class="cart-drawer js-cart-drawer" role="dialog" aria-label="Shopping cart" aria-hidden="true">
+      <div class="cart-drawer__header">
+        <h2 class="cart-drawer__title">Your Cart</h2>
+        <button class="modal__close js-cart-drawer-close" aria-label="Close cart">✕</button>
+      </div>
+      <div class="cart-drawer__body js-cart-drawer-body">
+        <div class="cart-drawer__empty">
+          <span class="cart-drawer__empty-icon">🛒</span>
+          <p>Your cart is empty</p>
+          <a href="/collections/all" class="btn btn-secondary btn-sm">Shop Now</a>
+        </div>
+      </div>
+      <div class="cart-drawer__footer js-cart-drawer-footer" style="display:none;">
+        <div class="cart-totals js-cart-totals"></div>
+        <a href="/cart" class="btn btn-dark w-full" style="margin-bottom: var(--space-3);">View Cart</a>
+        <a href="/checkout" class="btn btn-primary w-full">Checkout Securely</a>
+        <p style="text-align:center; margin-top:var(--space-3); font-size:var(--text-xs); color:var(--color-text-secondary);">
+          🔒 Secure Checkout · COD Available · Easy Returns
+        </p>
+      </div>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div class="modal-backdrop js-quickview-backdrop" role="dialog" aria-label="Quick view" aria-hidden="true">
+      <div class="modal js-quickview-modal">
+        <button class="modal__close js-quickview-close" aria-label="Close">✕</button>
+        <div class="modal__inner js-quickview-content"></div>
+      </div>
+    </div>
+
+    <!-- Core JS Utilities -->
+    <script src="{{ 'kayakalp-utils.js' | asset_url }}" defer></script>
+    <script src="{{ 'kayakalp-scroll.js' | asset_url }}" defer></script>
+    <script src="{{ 'kayakalp-sticky.js' | asset_url }}" defer></script>
+    <script src="{{ 'kayakalp-cart.js' | asset_url }}" defer></script>
+    <script src="{{ 'kayakalp-whatsapp.js' | asset_url }}" defer></script>
+    <script src="{{ 'kayakalp-quickview.js' | asset_url }}" defer></script>
+
+    <!-- Shopify analytics -->
+    {{ content_for_additional_tags }}
+  </body>
+</html>

@@ -1,0 +1,130 @@
+{{ 'section-about.css' | asset_url | stylesheet_tag }}
+{{ 'section-trust.css' | asset_url | stylesheet_tag }}
+
+<!-- Section 1: Origin Hero -->
+<section class="our-story-hero section-dark" style="min-height:60vh;display:flex;align-items:center;position:relative;overflow:hidden;">
+  {%- if page.metafields.kayakalp.hero_image != blank -%}
+    <img
+      class="our-story-hero__bg"
+      src="{{ page.metafields.kayakalp.hero_image.value | img_url: '1600x' }}"
+      alt="" loading="lazy" aria-hidden="true"
+      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.3;">
+  {%- endif -%}
+  <div class="container" style="position:relative;z-index:1;text-align:center;padding-block:var(--space-16);">
+    <p class="section-eyebrow" data-animate>✦ OUR STORY</p>
+    <h1 class="section-title text-gold" style="font-size:var(--text-4xl);margin-bottom:var(--space-6);" data-animate data-animate-delay="1">
+      Kayakalp — The Sanskrit Art of Renewal
+    </h1>
+    <p class="section-subtitle" style="color:rgba(245,240,232,0.8);max-width:640px;margin-inline:auto;" data-animate data-animate-delay="2">
+      The word "Kayakalp" means the complete renewal of the body, mind, and spirit — the ancient Indian art of rejuvenation. This is not a brand name. It is our promise.
+    </p>
+  </div>
+</section>
+
+<!-- Section 2: Brand Narrative -->
+<section class="section">
+  <div class="container">
+    <div class="our-story-narrative">
+      <div class="our-story-narrative__text" data-animate>
+        <h2 class="section-title" style="color:var(--color-primary);">Where It All Began</h2>
+        <p>Our founders grew up in a family of Ayurvedic Vaidyas in Rajasthan — where the morning began with fresh herb kadha and every ailment was met with classical wisdom before a prescription pad. That world shaped everything we built.</p>
+        <p style="margin-top:var(--space-4);">When the founders moved to cities in the 2010s, they noticed what was lost: access to authentic, trustworthy Ayurvedic products that were both classical in formulation and modern in quality assurance. Everything was either too "spiritual" or too "pharmaceutical." Nothing felt like home.</p>
+        <p style="margin-top:var(--space-4);">Kayakalp was the answer — a bridge between the Gurukul and the lab.</p>
+      </div>
+      <blockquote class="brand-story-teaser__pullquote" data-animate data-animate-delay="2">
+        <p>We did not start a company. We started a conversation between Sushruta and the modern Indian family.</p>
+        <cite>— Founder, Kayakalp Ayurveda</cite>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- Section 3: The 5 Pillars -->
+<section class="section section-parchment">
+  <div class="container">
+    <div class="section-header" data-animate>
+      <p class="section-eyebrow">✦ OUR PHILOSOPHY</p>
+      <h2 class="section-title">The 5 Pillars of Kayakalp</h2>
+    </div>
+    <div class="pillars-grid">
+      {%- assign pillars = "Satva,Shakti,Saral,Satya,Samridhi" | split: "," -%}
+      {%- assign pillar_descs = "Purity of ingredient — we use only what nature intended.|Potency of formula — classical proportions, maximum efficacy.|Simplicity of use — designed for daily Indian life.|Transparency of process — from farm to you, nothing hidden.|Prosperity through health — your wellness is our success." | split: "|" -%}
+      {%- assign pillar_icons = "🌱,⚡,✋,👁️,💛" | split: "," -%}
+      {%- for pillar in pillars -%}
+        <div class="pillar-card" data-animate data-animate-delay="{{ forloop.index }}">
+          <div class="pillar-card__icon">{{ pillar_icons[forloop.index0] }}</div>
+          <h3 class="pillar-card__title">{{ pillar }}</h3>
+          <p class="pillar-card__desc">{{ pillar_descs[forloop.index0] }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<!-- Section 4: Certifications -->
+<section class="section section-herb">
+  <div class="container">
+    <div class="section-header" data-animate>
+      <p class="section-eyebrow">✦ QUALITY ASSURANCE</p>
+      <h2 class="section-title">The Lab & The Field</h2>
+      <p class="section-subtitle">Every ingredient traceable. Every formula tested. Every batch certified.</p>
+    </div>
+    <div class="certifications" style="justify-content:center;gap:var(--space-4);" data-animate>
+      <span class="cert-badge" style="padding:var(--space-3) var(--space-6);font-size:var(--text-sm);">📜 AYUSH Licensed</span>
+      <span class="cert-badge" style="padding:var(--space-3) var(--space-6);font-size:var(--text-sm);">🏆 GMP Certified</span>
+      <span class="cert-badge" style="padding:var(--space-3) var(--space-6);font-size:var(--text-sm);">🔬 NABL Accredited Lab</span>
+      <span class="cert-badge" style="padding:var(--space-3) var(--space-6);font-size:var(--text-sm);">ISO 9001:2015</span>
+    </div>
+  </div>
+</section>
+
+<!-- Section 5: CTA -->
+<section class="section section-dark" style="text-align:center;">
+  <div class="container">
+    <p class="section-eyebrow" data-animate>✦ BEGIN YOUR JOURNEY</p>
+    <h2 class="section-title text-gold" data-animate data-animate-delay="1">Start Your Wellness Journey</h2>
+    <p class="section-subtitle" style="color:rgba(245,240,232,0.75);" data-animate data-animate-delay="2">
+      "Kayakalp is not a product. It is a promise — to bring back the age-old art of healing in every Indian home."
+    </p>
+    <div style="display:flex;justify-content:center;gap:var(--space-4);flex-wrap:wrap;margin-top:var(--space-8);" data-animate data-animate-delay="3">
+      <a href="/collections/all" class="btn btn-primary btn-lg">Shop All Products</a>
+      <a href="/pages/consult" class="btn btn-ghost-light btn-lg">Free Consultation</a>
+    </div>
+  </div>
+</section>
+
+<style>
+.our-story-hero__bg { object-position: center 30%; }
+.our-story-narrative {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-10);
+  align-items: start;
+}
+@media (min-width: 1024px) { .our-story-narrative { grid-template-columns: 3fr 2fr; gap: var(--space-16); } }
+.our-story-narrative__text p {
+  font-size: var(--text-md);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+}
+@media (min-width: 768px) { .pillars-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1024px) { .pillars-grid { grid-template-columns: repeat(5, 1fr); } }
+.pillar-card {
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  text-align: center;
+  border: 1px solid var(--color-border-light);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-organic), box-shadow var(--transition-organic);
+}
+.pillar-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.pillar-card__icon { font-size: 2.5rem; margin-bottom: var(--space-3); }
+.pillar-card__title { font-family: var(--font-heading); font-size: var(--text-lg); color: var(--color-primary); margin-bottom: var(--space-2); }
+.pillar-card__desc { font-family: var(--font-subheading); font-style: italic; font-size: var(--text-sm); color: var(--color-text-secondary); line-height: var(--leading-snug); }
+</style>

@@ -1,0 +1,90 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "benefit-1": {
+          "type": "benefit",
+          "settings": {
+            "icon": "✓",
+            "title": "Reduces hair fall in 4 weeks",
+            "desc": "Clinical studies show significant reduction in hair fall with consistent use."
+          }
+        },
+        "benefit-2": {
+          "type": "benefit",
+          "settings": {
+            "icon": "✓",
+            "title": "Strengthens hair roots from within",
+            "desc": "Bhringraj and Brahmi nourish the follicles at the root level."
+          }
+        },
+        "benefit-3": {
+          "type": "benefit",
+          "settings": {
+            "icon": "✓",
+            "title": "Promotes new growth",
+            "desc": "Amla stimulates dormant follicles and encourages new hair growth."
+          }
+        },
+        "how-1": {
+          "type": "how_to_step",
+          "settings": {
+            "title": "Warm the oil",
+            "desc": "Gently warm 2–3 ml of oil between your palms or in a small bowl of hot water."
+          }
+        },
+        "how-2": {
+          "type": "how_to_step",
+          "settings": {
+            "title": "Apply to scalp",
+            "desc": "Part your hair and apply directly to the scalp with fingertips. Massage in circular motions for 5–10 minutes."
+          }
+        },
+        "how-3": {
+          "type": "how_to_step",
+          "settings": {
+            "title": "Leave for 2+ hours",
+            "desc": "For best results, leave overnight. Cover with a warm towel if desired."
+          }
+        },
+        "how-4": {
+          "type": "how_to_step",
+          "settings": {
+            "title": "Wash with mild shampoo",
+            "desc": "Use a sulphate-free or mild herbal shampoo. Repeat 2–3 times per week."
+          }
+        },
+        "faq-1": {
+          "type": "faq",
+          "settings": {
+            "question": "How soon will I see results?",
+            "answer": "Most customers see noticeable improvement in 4–6 weeks with consistent use 2–3 times per week."
+          }
+        },
+        "faq-2": {
+          "type": "faq",
+          "settings": {
+            "question": "Is this product safe for colour-treated hair?",
+            "answer": "Yes. All our oils use natural, non-stripping ingredients that are safe for chemically treated hair."
+          }
+        },
+        "faq-3": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I use this during pregnancy?",
+            "answer": "Please consult your doctor before using any Ayurvedic product during pregnancy. We recommend our free Vaidya consultation."
+          }
+        }
+      },
+      "block_order": ["benefit-1", "benefit-2", "benefit-3", "how-1", "how-2", "how-3", "how-4", "faq-1", "faq-2", "faq-3"],
+      "settings": {
+        "show_subscription": true,
+        "show_urgency": true,
+        "show_related": true,
+        "related_heading": "You May Also Like"
+      }
+    }
+  },
+  "order": ["main"]
+}

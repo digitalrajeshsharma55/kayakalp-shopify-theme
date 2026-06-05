@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "main": {
+      "type": "customer-account",
+      "blocks": {
+        "promo": {
+          "type": "promo_banner",
+          "settings": {
+            "icon": "💬",
+            "heading": "Need Help Choosing?",
+            "text": "Our Vaidyas are available Mon–Sat, 10am–7pm for free personalised consultations.",
+            "cta_label": "Get Free Consultation →",
+            "cta_url": "/pages/consult"
+          }
+        }
+      },
+      "block_order": ["promo"],
+      "settings": {
+        "greeting_prefix": "Namaste,",
+        "show_wellness_tip": true,
+        "wellness_tip": "Start your morning with warm water infused with Triphala for digestive health. Consistency is the key to Ayurvedic healing."
+      }
+    }
+  },
+  "order": ["main"]
+}

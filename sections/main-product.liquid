@@ -1,0 +1,487 @@
+{{ 'page-product.css' | asset_url | stylesheet_tag }}
+
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign product_benefit = product.metafields.kayakalp.benefit_short.value -%}
+{%- assign vaidya_quote = product.metafields.kayakalp.vaidya_quote.value -%}
+{%- assign results_timeline = product.metafields.kayakalp.results_timeline.value | default: '4–6 weeks' -%}
+
+<article class="product-page section" itemscope itemtype="http://schema.org/Product">
+  <div class="container">
+    <div class="product-page__layout">
+
+      <!-- ── Left: Image Gallery ────────────────────────────── -->
+      <div class="product-gallery js-gallery">
+        <!-- Main image -->
+        <div class="product-gallery__main">
+          <div class="product-gallery__main-wrap js-gallery-main">
+            {%- if product.images.size > 0 -%}
+              {%- for image in product.images -%}
+                <div
+                  class="product-gallery__main-slide{% if forloop.first %} is-active{% endif %}"
+                  data-index="{{ forloop.index0 }}"
+                  aria-hidden="{{ forloop.first | json | replace: 'true','false' | replace: 'false','true' }}"
+                >
+                  <img
+                    itemprop="image"
+                    class="product-gallery__main-image js-gallery-zoom"
+                    src="{{ image | img_url: '900x900' }}"
+                    srcset="{{ image | img_url: '500x500' }} 500w,
+                            {{ image | img_url: '900x900' }} 900w,
+                            {{ image | img_url: '1200x1200' }} 1200w"
+                    sizes="(max-width: 768px) 100vw, 55vw"
+                    alt="{{ image.alt | default: product.title | escape }}"
+                    {% if forloop.first %}loading="eager"{% else %}loading="lazy"{% endif %}
+                    width="900" height="900">
+                </div>
+              {%- endfor -%}
+            {%- else -%}
+              <div class="product-gallery__main-slide is-active">
+                <div class="product-gallery__placeholder">No image available</div>
+              </div>
+            {%- endif -%}
+          </div>
+
+          <!-- Mobile dots -->
+          {%- if product.images.size > 1 -%}
+            <div class="product-gallery__mobile-dots js-gallery-dots" aria-label="Image navigation">
+              {%- for image in product.images -%}
+                <button
+                  class="hero__dot{% if forloop.first %} hero__dot--active{% endif %}"
+                  data-index="{{ forloop.index0 }}"
+                  aria-label="Image {{ forloop.index }}"
+                ></button>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
+
+        <!-- Thumbnails (desktop) -->
+        {%- if product.images.size > 1 -%}
+          <div class="product-gallery__thumbs js-gallery-thumbs" role="list" aria-label="Product images">
+            {%- for image in product.images limit: 6 -%}
+              <button
+                class="product-gallery__thumb{% if forloop.first %} is-active{% endif %}"
+                role="listitem"
+                data-index="{{ forloop.index0 }}"
+                aria-label="View image {{ forloop.index }}"
+                aria-pressed="{{ forloop.first | json }}"
+              >
+                <img
+                  src="{{ image | img_url: '160x160', crop: 'center' }}"
+                  alt="{{ image.alt | default: product.title | escape }}"
+                  loading="lazy"
+                  width="80" height="80">
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- ── Right: Purchase Panel ──────────────────────────── -->
+      <div class="product-info" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <!-- Badges row -->
+        <div class="product-info__badges">
+          {%- if product.tags contains 'bestseller' -%}
+            <span class="badge badge--bestseller">Bestseller</span>
+          {%- endif -%}
+          <span class="badge badge--ayush">AYUSH Certified</span>
+        </div>
+
+        <!-- Rating bar (quick link to reviews) -->
+        <a href="#product-reviews" class="product-info__rating">
+          <span class="stars" aria-label="Rating">★★★★★</span>
+          <span class="product-info__rating-val">
+            {{ product.metafields.reviews.rating.value | default: '4.8' }}
+          </span>
+          <span class="product-info__review-count">
+            ({{ product.metafields.reviews.rating_count.value | default: '12,400' }}+ reviews)
+          </span>
+        </a>
+
+        <!-- Title -->
+        <h1 class="product-title" itemprop="name">{{ product.title }}</h1>
+
+        <!-- Subtitle / tagline -->
+        {%- if product_benefit != blank -%}
+          <p class="product-tagline" itemprop="description">{{ product_benefit }}</p>
+        {%- elsif product.description != blank -%}
+          <p class="product-tagline">{{ product.description | strip_html | truncate: 160 }}</p>
+        {%- endif -%}
+
+        <!-- Pricing -->
+        <div class="product-pricing">
+          {%- if current_variant.compare_at_price > current_variant.price -%}
+            <span class="price-original" itemprop="price" content="{{ current_variant.compare_at_price | money_without_currency }}">
+              {{ current_variant.compare_at_price | money }}
+            </span>
+            <span class="price-sale js-variant-price">{{ current_variant.price | money }}</span>
+            <span class="price-savings">
+              Save {{ current_variant.compare_at_price | minus: current_variant.price | money }}
+              ({{ current_variant.compare_at_price | minus: current_variant.price | times: 100 | divided_by: current_variant.compare_at_price }}% OFF)
+            </span>
+          {%- else -%}
+            <span class="price-sale js-variant-price" itemprop="price" content="{{ current_variant.price | money_without_currency }}">
+              {{ current_variant.price | money }}
+            </span>
+          {%- endif -%}
+        </div>
+
+        <!-- Variant Selector (size/format pills) -->
+        {%- unless product.has_only_default_variant -%}
+          <div class="product-variants">
+            {%- for option in product.options_with_values -%}
+              <div class="product-variants__group">
+                <label class="product-variants__label">
+                  {{ option.name }}:
+                  <span class="product-variants__selected js-selected-opt-{{ option.position }}">
+                    {{ current_variant.options[forloop.index0] }}
+                  </span>
+                </label>
+                <div class="product-variants__pills" role="radiogroup" aria-label="{{ option.name }}">
+                  {%- for value in option.values -%}
+                    {%- assign variant_label = option.name | handleize | append: '_' | append: value | handleize -%}
+                    <input
+                      type="radio"
+                      class="sr-only variant-pill-input"
+                      name="{{ option.name | handleize }}"
+                      id="{{ variant_label }}"
+                      value="{{ value | escape }}"
+                      data-option-position="{{ option.position }}"
+                      {% if current_variant.options[forloop.index0] == value %}checked{% endif %}>
+                    <label
+                      class="product-variants__pill"
+                      for="{{ variant_label }}">
+                      {{ value }}
+                    </label>
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endunless -%}
+
+        <!-- Subscribe & Save toggle -->
+        {%- if section.settings.show_subscription -%}
+          <div class="subscribe-toggle">
+            <label class="subscribe-toggle__option">
+              <input type="radio" name="purchase-type" value="one-time" class="sr-only" checked>
+              <span class="subscribe-toggle__label">
+                <strong>One-time Purchase</strong>
+                <span class="subscribe-toggle__price js-variant-price-onetime">{{ current_variant.price | money }}</span>
+              </span>
+            </label>
+            <label class="subscribe-toggle__option subscribe-toggle__option--recommended">
+              <input type="radio" name="purchase-type" value="subscribe" class="sr-only">
+              <span class="subscribe-toggle__label">
+                <strong>Subscribe & Save 15%</strong>
+                <span class="subscribe-toggle__price">{{ current_variant.price | times: 0.85 | round | money }}/month</span>
+                <span class="badge badge--bestseller" style="font-size:0.6rem;padding:2px 6px;">MOST POPULAR</span>
+              </span>
+            </label>
+          </div>
+        {%- endif -%}
+
+        <!-- Stock urgency -->
+        {%- if section.settings.show_urgency and current_variant.inventory_quantity > 0 and current_variant.inventory_quantity <= 30 -%}
+          <p class="product-urgency">
+            <span class="product-urgency__dot" aria-hidden="true"></span>
+            Only {{ current_variant.inventory_quantity }} left in stock
+          </p>
+        {%- endif -%}
+
+        <!-- Add to Cart -->
+        <form method="post" action="/cart/add" id="product-form-{{ product.id }}" class="product-form js-product-form">
+          <input type="hidden" name="form_type" value="product">
+          <input type="hidden" name="utf8" value="✓">
+          <input type="hidden" name="id" value="{{ current_variant.id }}" class="js-variant-id">
+
+          <div class="product-form__actions">
+            <button
+              type="button"
+              class="btn btn-cart js-add-to-cart"
+              data-variant-id="{{ current_variant.id }}"
+              {% unless current_variant.available %}disabled{% endunless %}>
+              {%- if current_variant.available -%}
+                Add to Cart — {{ current_variant.price | money }}
+              {%- else -%}
+                Sold Out
+              {%- endif -%}
+            </button>
+
+            <!-- WhatsApp Buy Now -->
+            <a
+              href="https://wa.me/{{ section.settings.whatsapp_number | default: '919876543210' }}?text={{ 'I want to order ' | append: product.title | url_encode }}"
+              class="btn btn-whatsapp"
+              target="_blank"
+              rel="noopener"
+              aria-label="Buy via WhatsApp">
+              Buy via WhatsApp
+            </a>
+          </div>
+        </form>
+
+        <!-- Delivery & Trust signals -->
+        <div class="product-trust">
+          <div class="product-trust__item">
+            <span class="product-trust__icon">🚚</span>
+            <div>
+              <strong>Free Delivery</strong> on orders above ₹699
+              <br><small>Estimated: 3–5 business days</small>
+            </div>
+          </div>
+          <div class="product-trust__item">
+            <span class="product-trust__icon">🔄</span>
+            <div><strong>Easy Returns</strong> within 7 days</div>
+          </div>
+          <div class="product-trust__item">
+            <span class="product-trust__icon">💵</span>
+            <div><strong>COD Available</strong></div>
+          </div>
+          <div class="product-trust__item">
+            <span class="product-trust__icon">📜</span>
+            <div><strong>AYUSH Certified</strong> formula</div>
+          </div>
+        </div>
+
+        <!-- Results timeline -->
+        {%- if results_timeline != blank -%}
+          <div class="product-results">
+            <span class="product-results__label">⏱️ Expected results in</span>
+            <strong class="product-results__timeline">{{ results_timeline }}</strong>
+          </div>
+        {%- endif -%}
+
+        <!-- Vaidya Quote -->
+        {%- if vaidya_quote != blank -%}
+          <blockquote class="vaidya-quote">
+            <p class="vaidya-quote__text">{{ vaidya_quote }}</p>
+            {%- if product.metafields.kayakalp.vaidya_name.value != blank -%}
+              <cite class="vaidya-quote__cite">— {{ product.metafields.kayakalp.vaidya_name.value }}</cite>
+            {%- endif -%}
+          </blockquote>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <!-- ── Below-fold Tabs ────────────────────────────────── -->
+    <div class="product-tabs js-tabs" data-animate>
+      <div class="product-tabs__nav" role="tablist" aria-label="Product information">
+        <button class="product-tabs__btn is-active" role="tab" aria-selected="true"  aria-controls="tab-benefits"   id="tab-btn-benefits">Benefits</button>
+        <button class="product-tabs__btn"            role="tab" aria-selected="false" aria-controls="tab-ingredients" id="tab-btn-ingredients">Ingredients</button>
+        <button class="product-tabs__btn"            role="tab" aria-selected="false" aria-controls="tab-howto"      id="tab-btn-howto">How to Use</button>
+        <button class="product-tabs__btn"            role="tab" aria-selected="false" aria-controls="tab-evidence"   id="tab-btn-evidence">Clinical Evidence</button>
+        <button class="product-tabs__btn"            role="tab" aria-selected="false" aria-controls="tab-faq"        id="tab-btn-faq">FAQ</button>
+      </div>
+
+      <!-- Benefits -->
+      <div class="product-tabs__panel is-active" id="tab-benefits" role="tabpanel" aria-labelledby="tab-btn-benefits">
+        <div class="product-benefits">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'benefit' -%}
+              <div class="product-benefit" {{ block.shopify_attributes }}>
+                <span class="product-benefit__icon" aria-hidden="true">{{ block.settings.icon | default: '✓' }}</span>
+                <div>
+                  <strong class="product-benefit__title">{{ block.settings.title }}</strong>
+                  {%- if block.settings.desc != blank -%}
+                    <p class="product-benefit__desc">{{ block.settings.desc }}</p>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+          {%- if product.description != blank -%}
+            <div class="product-description rte">{{ product.description }}</div>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <!-- Ingredients -->
+      <div class="product-tabs__panel" id="tab-ingredients" role="tabpanel" aria-labelledby="tab-btn-ingredients" hidden>
+        <div class="product-ingredients">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'ingredient' -%}
+              <div class="ingredient-item" {{ block.shopify_attributes }}>
+                {%- if block.settings.image != blank -%}
+                  <div class="ingredient-item__image-wrap">
+                    <img src="{{ block.settings.image | img_url: '200x200', crop: 'center' }}" alt="{{ block.settings.name_english | escape }}" loading="lazy" width="100" height="100">
+                  </div>
+                {%- endif -%}
+                <div class="ingredient-item__info">
+                  <p class="ingredient-item__hindi">{{ block.settings.name_hindi }}</p>
+                  <h4 class="ingredient-item__name">{{ block.settings.name_english }}</h4>
+                  <p class="ingredient-item__benefit">{{ block.settings.benefit }}</p>
+                  {%- if block.settings.classical_ref != blank -%}
+                    <p class="ingredient-item__ref">📜 {{ block.settings.classical_ref }}</p>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <!-- How to Use -->
+      <div class="product-tabs__panel" id="tab-howto" role="tabpanel" aria-labelledby="tab-btn-howto" hidden>
+        <div class="product-howto">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'how_to_step' -%}
+              <div class="howto-step" {{ block.shopify_attributes }}>
+                <div class="howto-step__number" aria-hidden="true">{{ forloop.index }}</div>
+                <div>
+                  <strong class="howto-step__title">{{ block.settings.title }}</strong>
+                  <p class="howto-step__desc">{{ block.settings.desc }}</p>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <!-- Clinical Evidence -->
+      <div class="product-tabs__panel" id="tab-evidence" role="tabpanel" aria-labelledby="tab-btn-evidence" hidden>
+        <div class="product-evidence rte">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'evidence' -%}
+              <div class="evidence-item" {{ block.shopify_attributes }}>
+                <h4 class="evidence-item__title">{{ block.settings.title }}</h4>
+                <p class="evidence-item__summary">{{ block.settings.summary }}</p>
+                {%- if block.settings.link != blank -%}
+                  <a href="{{ block.settings.link }}" target="_blank" rel="noopener" class="btn-arrow">View Study</a>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="product-tabs__panel" id="tab-faq" role="tabpanel" aria-labelledby="tab-btn-faq" hidden>
+        <div class="product-faq">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'faq' -%}
+              <details class="faq-item" {{ block.shopify_attributes }}>
+                <summary class="faq-item__question">
+                  {{ block.settings.question }}
+                  <span class="faq-item__icon" aria-hidden="true">+</span>
+                </summary>
+                <div class="faq-item__answer">{{ block.settings.answer }}</div>
+              </details>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Related Products ───────────────────────────────── -->
+    {%- if section.settings.show_related -%}
+      {%- assign related = product.collections.first.products | where: 'id', product.id | map: 'id' -%}
+      <div class="related-products" data-animate>
+        <h2 class="section-title" style="margin-bottom:var(--space-8);">{{ section.settings.related_heading | default: 'You May Also Like' }}</h2>
+        <div class="featured-products__grid">
+          {%- for related_product in product.collections.first.products limit: 4 -%}
+            {%- unless related_product.id == product.id -%}
+              {% render 'product-card', product: related_product, lazy: true %}
+            {%- endunless -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    <!-- Reviews anchor -->
+    <div id="product-reviews"></div>
+
+  </div>
+</article>
+
+<script src="{{ 'kayakalp-gallery.js' | asset_url }}" defer></script>
+<script src="{{ 'kayakalp-tabs.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Product Information",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_subscription",
+      "label": "Show Subscribe & Save toggle",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_urgency",
+      "label": "Show stock urgency indicator",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_related",
+      "label": "Show related products",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "related_heading",
+      "label": "Related products heading",
+      "default": "You May Also Like"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_number",
+      "label": "WhatsApp number (no +)",
+      "default": "919876543210"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon", "default": "✓" },
+        { "type": "text", "id": "title", "label": "Benefit title", "default": "Reduces hair fall in 4 weeks" },
+        { "type": "text", "id": "desc", "label": "Description (optional)" }
+      ]
+    },
+    {
+      "type": "ingredient",
+      "name": "Ingredient",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Herb image" },
+        { "type": "text", "id": "name_hindi", "label": "Hindi name" },
+        { "type": "text", "id": "name_english", "label": "English name", "default": "Bhringraj" },
+        { "type": "text", "id": "benefit", "label": "Benefit", "default": "Strengthens hair roots from within" },
+        { "type": "text", "id": "classical_ref", "label": "Classical reference" }
+      ]
+    },
+    {
+      "type": "how_to_step",
+      "name": "How to Use Step",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Step title", "default": "Apply generously" },
+        { "type": "textarea", "id": "desc", "label": "Step description" }
+      ]
+    },
+    {
+      "type": "evidence",
+      "name": "Clinical Evidence",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Study title" },
+        { "type": "textarea", "id": "summary", "label": "Study summary" },
+        { "type": "url", "id": "link", "label": "Study link" }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "How soon will I see results?" },
+        { "type": "textarea", "id": "answer", "label": "Answer", "default": "Most customers see noticeable improvement in 4–6 weeks with consistent use." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Information"
+    }
+  ]
+}
+{% endschema %}

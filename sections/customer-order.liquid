@@ -1,0 +1,267 @@
+{{ 'page-customer.css' | asset_url | stylesheet_tag }}
+
+<div class="account-page section">
+  <div class="container">
+
+    <a href="{{ routes.account_url }}" class="order-detail__back">
+      ← Back to My Orders
+    </a>
+
+    <div style="margin-bottom:var(--space-8);">
+      <p class="section-eyebrow">✦ ORDER DETAILS</p>
+      <h1 class="section-title" style="color:var(--color-primary);font-size:var(--text-2xl);">
+        {{ section.settings.heading_prefix }} {{ order.name }}
+      </h1>
+      <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin-top:var(--space-2);">
+        Placed on {{ order.created_at | date: "%d %B %Y at %I:%M %p" }}
+      </p>
+    </div>
+
+    <div class="order-detail-layout">
+
+      <!-- Left: Line Items -->
+      <div>
+
+        <!-- Order Items -->
+        <div class="account-card">
+          <div class="account-card__header">
+            <h2 class="account-card__title">Items Ordered</h2>
+            <span class="order-status order-status--{{ order.fulfillment_status }}">
+              {{ order.fulfillment_status | default: 'Unfulfilled' | capitalize }}
+            </span>
+          </div>
+          <div class="account-card__body" style="padding:0;">
+            <table class="order-items-table" style="width:100%;">
+              <thead>
+                <tr>
+                  <th scope="col">Product</th>
+                  <th scope="col" style="text-align:center;">Qty</th>
+                  <th scope="col" style="text-align:right;">Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                {%- for line_item in order.line_items -%}
+                  <tr>
+                    <td>
+                      <div class="order-item">
+                        {%- if line_item.image -%}
+                          <div class="order-item__image">
+                            <img
+                              src="{{ line_item.image | img_url: '128x128', crop: 'center' }}"
+                              alt="{{ line_item.title | escape }}"
+                              width="64" height="64"
+                              loading="lazy">
+                          </div>
+                        {%- endif -%}
+                        <div>
+                          <p class="order-item__name">{{ line_item.product.title }}</p>
+                          {%- unless line_item.variant.title == 'Default Title' -%}
+                            <p class="order-item__variant">{{ line_item.variant.title }}</p>
+                          {%- endunless -%}
+                          {%- if line_item.fulfillment -%}
+                            <p class="order-item__variant" style="color:var(--color-primary);">
+                              Shipped via {{ line_item.fulfillment.tracking_company }}
+                              {%- if line_item.fulfillment.tracking_url -%}
+                                — <a href="{{ line_item.fulfillment.tracking_url }}" target="_blank" rel="noopener">Track</a>
+                              {%- endif -%}
+                            </p>
+                          {%- endif -%}
+                        </div>
+                      </div>
+                    </td>
+                    <td style="text-align:center;font-family:var(--font-label);font-size:var(--text-sm);">
+                      × {{ line_item.quantity }}
+                    </td>
+                    <td style="text-align:right;font-family:var(--font-label);font-weight:700;color:var(--color-primary);">
+                      {{ line_item.final_line_price | money }}
+                    </td>
+                  </tr>
+                {%- endfor -%}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Addresses -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);margin-top:var(--space-6);">
+          {%- if order.shipping_address -%}
+            <div class="account-card">
+              <div class="account-card__header">
+                <h3 class="account-card__title" style="font-size:var(--text-base);">Shipping Address</h3>
+              </div>
+              <div class="account-card__body">
+                <address style="font-style:normal;font-size:var(--text-sm);color:var(--color-text-secondary);line-height:var(--leading-relaxed);">
+                  <strong style="color:var(--color-text-primary);">{{ order.shipping_address.name }}</strong><br>
+                  {{ order.shipping_address.address1 }}<br>
+                  {%- if order.shipping_address.address2 != blank -%}
+                    {{ order.shipping_address.address2 }}<br>
+                  {%- endif -%}
+                  {{ order.shipping_address.city }}, {{ order.shipping_address.province }}<br>
+                  {{ order.shipping_address.zip }}, {{ order.shipping_address.country }}
+                  {%- if order.shipping_address.phone -%}
+                    <br>📞 {{ order.shipping_address.phone }}
+                  {%- endif -%}
+                </address>
+              </div>
+            </div>
+          {%- endif -%}
+
+          {%- if order.billing_address -%}
+            <div class="account-card">
+              <div class="account-card__header">
+                <h3 class="account-card__title" style="font-size:var(--text-base);">Billing Address</h3>
+              </div>
+              <div class="account-card__body">
+                <address style="font-style:normal;font-size:var(--text-sm);color:var(--color-text-secondary);line-height:var(--leading-relaxed);">
+                  <strong style="color:var(--color-text-primary);">{{ order.billing_address.name }}</strong><br>
+                  {{ order.billing_address.address1 }}<br>
+                  {%- if order.billing_address.address2 != blank -%}
+                    {{ order.billing_address.address2 }}<br>
+                  {%- endif -%}
+                  {{ order.billing_address.city }}, {{ order.billing_address.province }}<br>
+                  {{ order.billing_address.zip }}, {{ order.billing_address.country }}
+                </address>
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+
+        <!-- WhatsApp Support -->
+        {%- if section.settings.show_whatsapp_support -%}
+          <div style="margin-top:var(--space-6);padding:var(--space-5);background:var(--color-bg-herb);border-radius:var(--radius-xl);border:1px solid rgba(44,74,30,0.15);display:flex;align-items:center;gap:var(--space-4);flex-wrap:wrap;">
+            <span style="font-size:1.5rem;">💬</span>
+            <div style="flex:1;">
+              <p style="font-family:var(--font-label);font-weight:700;font-size:var(--text-sm);color:var(--color-primary);">{{ section.settings.whatsapp_support_heading }}</p>
+              <p style="font-size:var(--text-xs);color:var(--color-text-secondary);">{{ section.settings.whatsapp_support_text }}</p>
+            </div>
+            <a
+              href="https://wa.me/{{ section.settings.whatsapp_number }}?text={{ section.settings.whatsapp_message | replace: '{ORDER}', order.name | url_encode }}"
+              target="_blank"
+              rel="noopener"
+              class="btn btn-whatsapp">
+              Chat on WhatsApp
+            </a>
+          </div>
+        {%- endif -%}
+
+      </div>
+
+      <!-- Right: Order Summary -->
+      <div>
+        <div class="order-summary-card">
+          <h2 class="order-summary-card__title">Order Summary</h2>
+
+          <div class="order-summary-row">
+            <span>Payment Status</span>
+            <span class="order-status order-status--{{ order.financial_status }}">
+              {{ order.financial_status | capitalize }}
+            </span>
+          </div>
+
+          <div class="order-summary-row">
+            <span>Subtotal</span>
+            <span>{{ order.subtotal_price | money }}</span>
+          </div>
+
+          {%- for discount_application in order.discount_applications -%}
+            <div class="order-summary-row" style="color:var(--color-primary);">
+              <span>
+                Discount
+                {%- if discount_application.title -%} ({{ discount_application.title }}){%- endif -%}
+              </span>
+              <span style="color:var(--color-primary);">−{{ discount_application.total_allocated_amount | money }}</span>
+            </div>
+          {%- endfor -%}
+
+          {%- if order.shipping_price > 0 -%}
+            <div class="order-summary-row">
+              <span>Shipping</span>
+              <span>{{ order.shipping_price | money }}</span>
+            </div>
+          {%- else -%}
+            <div class="order-summary-row">
+              <span>Shipping</span>
+              <span style="color:var(--color-success);font-weight:700;">FREE 🚚</span>
+            </div>
+          {%- endif -%}
+
+          {%- if order.tax_price > 0 -%}
+            <div class="order-summary-row">
+              <span>GST</span>
+              <span>{{ order.tax_price | money }}</span>
+            </div>
+          {%- endif -%}
+
+          <div class="order-summary-row order-summary-row--total">
+            <span>Total</span>
+            <span>{{ order.total_price | money }}</span>
+          </div>
+        </div>
+
+        <!-- Reorder CTA -->
+        <div style="margin-top:var(--space-4);display:flex;flex-direction:column;gap:var(--space-3);">
+          <a href="/collections/all" class="btn btn-secondary" style="width:100%;text-align:center;">
+            Reorder or Shop More
+          </a>
+          <a href="{{ routes.account_url }}" class="btn btn-ghost" style="width:100%;text-align:center;">
+            ← Back to Orders
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Customer Order",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_prefix",
+      "label": "Heading prefix",
+      "default": "Order"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_whatsapp_support",
+      "label": "Show WhatsApp order support",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_number",
+      "label": "WhatsApp number (no +)",
+      "default": "919876543210"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_support_heading",
+      "label": "WhatsApp support heading",
+      "default": "Need help with this order?"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_support_text",
+      "label": "WhatsApp support text",
+      "default": "Our team is here Mon–Sat, 10am–7pm. We'll resolve any issue within 24 hours."
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_message",
+      "label": "WhatsApp pre-filled message",
+      "default": "Namaste! I need help with my order {ORDER}."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer Order Detail",
+      "settings": {
+        "show_whatsapp_support": true
+      }
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,125 @@
+{{ 'page-customer.css' | asset_url | stylesheet_tag }}
+
+<div class="auth-page">
+  <div class="auth-split">
+
+    <div class="auth-split__form">
+      <div class="auth-form-inner">
+
+        <a href="{{ routes.root_url }}" class="auth-form__logo">
+          {%- if section.settings.logo != blank -%}
+            <img
+              src="{{ section.settings.logo | img_url: '240x80' }}"
+              alt="{{ shop.name | escape }}"
+              width="120" height="40"
+              loading="eager">
+          {%- else -%}
+            <span style="font-family:var(--font-heading);font-size:var(--text-xl);color:var(--color-primary);">{{ shop.name }}</span>
+          {%- endif -%}
+        </a>
+
+        <p class="auth-form__eyebrow">{{ section.settings.eyebrow }}</p>
+        <h1 class="auth-form__title">{{ section.settings.heading }}</h1>
+        <p class="auth-form__subtitle">{{ section.settings.subheading }}</p>
+
+        {%- form 'activate_customer_account' -%}
+
+          {%- if form.errors -%}
+            <div class="auth-form__errors" role="alert">
+              <ul>
+                {%- for error in form.errors -%}
+                  <li>{{ form.errors.messages[error] }}</li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+
+          <div class="form-field form-field--password">
+            <label for="activate-password">Password</label>
+            <input
+              type="password"
+              id="activate-password"
+              name="customer[password]"
+              autocomplete="new-password"
+              required
+              minlength="5"
+              placeholder="Create a password">
+            <button type="button" class="form-field__toggle js-toggle-password" data-target="activate-password">Show</button>
+          </div>
+
+          <div class="form-field form-field--password">
+            <label for="activate-password-confirm">Confirm Password</label>
+            <input
+              type="password"
+              id="activate-password-confirm"
+              name="customer[password_confirmation]"
+              autocomplete="new-password"
+              required
+              placeholder="Repeat your password">
+            <button type="button" class="form-field__toggle js-toggle-password" data-target="activate-password-confirm">Show</button>
+          </div>
+
+          <div class="auth-form__submit">
+            <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">
+              Activate Account &amp; Sign In
+            </button>
+          </div>
+
+        {%- endform -%}
+
+        <div class="auth-benefits" style="margin-top:var(--space-8);border-top:1px solid var(--color-border-light);padding-top:var(--space-6);">
+          <div class="auth-benefit"><span class="auth-benefit__icon">📦</span><span>Track orders in real time</span></div>
+          <div class="auth-benefit"><span class="auth-benefit__icon">🌿</span><span>Personalised Ayurvedic recommendations</span></div>
+          <div class="auth-benefit"><span class="auth-benefit__icon">💬</span><span>Priority access to Vaidya consultations</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="auth-split__visual">
+      {%- if section.settings.background_image != blank -%}
+        <img
+          src="{{ section.settings.background_image | img_url: '900x1200', crop: 'center' }}"
+          alt="" width="900" height="1200"
+          loading="lazy" aria-hidden="true">
+      {%- endif -%}
+      <div class="auth-split__visual-overlay"></div>
+      <div class="auth-split__visual-content">
+        {%- if section.settings.quote != blank -%}
+          <p class="auth-split__visual-quote">{{ section.settings.quote }}</p>
+          <cite class="auth-split__visual-cite">{{ section.settings.quote_author }}</cite>
+        {%- endif -%}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.js-toggle-password').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var inp = document.getElementById(btn.dataset.target);
+    var isHidden = inp.type === 'password';
+    inp.type = isHidden ? 'text' : 'password';
+    btn.textContent = isHidden ? 'Hide' : 'Show';
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Activate Account",
+  "tag": null,
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "✦ WELCOME TO KAYAKALP" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Activate Your Account" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "You were invited to create an account. Set a password to get started on your wellness journey." },
+    { "type": "image_picker", "id": "background_image", "label": "Background image" },
+    { "type": "text", "id": "quote", "label": "Quote", "default": "स्वस्थस्य स्वास्थ्य रक्षणम् — Protect the health of the healthy." },
+    { "type": "text", "id": "quote_author", "label": "Attribution", "default": "— Ashtanga Hridayam" }
+  ],
+  "blocks": [],
+  "presets": [{ "name": "Activate Account" }]
+}
+{% endschema %}

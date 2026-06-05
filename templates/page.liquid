@@ -1,0 +1,44 @@
+<div class="page-template section">
+  <div class="container">
+    <div class="page-template__inner">
+      <h1 class="page-template__title section-title" data-animate>{{ page.title }}</h1>
+      {%- if page.content != blank -%}
+        <div class="page-template__content rte" data-animate data-animate-delay="1">
+          {{ page.content }}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<style>
+.page-template__inner {
+  max-width: 800px;
+  margin-inline: auto;
+}
+.page-template__title {
+  text-align: center;
+  margin-bottom: var(--space-8);
+  color: var(--color-primary);
+}
+.rte {
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+}
+.rte h2, .rte h3 { font-family: var(--font-heading); color: var(--color-primary); margin: var(--space-8) 0 var(--space-4); }
+.rte p { margin-bottom: var(--space-4); }
+.rte a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
+.rte ul, .rte ol { padding-left: var(--space-6); margin-bottom: var(--space-4); }
+.rte li { margin-bottom: var(--space-2); }
+.rte img { border-radius: var(--radius-lg); margin: var(--space-6) 0; }
+.rte blockquote {
+  border-left: 3px solid var(--color-accent-gold);
+  padding-left: var(--space-6);
+  margin: var(--space-8) 0;
+  font-family: var(--font-subheading);
+  font-style: italic;
+  font-size: var(--text-lg);
+  color: var(--color-secondary);
+}
+</style>

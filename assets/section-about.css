@@ -1,0 +1,128 @@
+/* ============================================================
+   KAYAKALP — Brand Story / About Section
+   section-about.css
+   ============================================================ */
+
+/* Brand Story Teaser */
+.brand-story-teaser {}
+
+.brand-story-teaser__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-10);
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .brand-story-teaser__inner {
+    grid-template-columns: 3fr 2fr;
+    gap: var(--space-16);
+  }
+}
+
+.section-title--story {
+  font-size: var(--text-2xl);
+  color: var(--color-primary);
+  margin-bottom: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .section-title--story { font-size: var(--text-3xl); }
+}
+
+.brand-story-teaser__para {
+  font-size: var(--text-md);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-4);
+}
+
+.brand-story-teaser__cta {
+  display: inline-flex;
+  margin-top: var(--space-4);
+}
+
+/* Pull quote */
+.brand-story-teaser__pullquote {
+  border-left: 3px solid var(--color-accent-gold);
+  padding-left: var(--space-6);
+  margin: 0;
+  position: relative;
+}
+
+.brand-story-teaser__pullquote::before {
+  content: '"';
+  position: absolute;
+  top: -var(--space-4);
+  left: var(--space-6);
+  font-family: var(--font-heading);
+  font-size: 5rem;
+  color: var(--color-accent-gold);
+  opacity: 0.2;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.brand-story-teaser__pullquote p {
+  font-family: var(--font-subheading);
+  font-style: italic;
+  font-size: var(--text-lg);
+  color: var(--color-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-4);
+}
+
+.brand-story-teaser__pullquote cite {
+  font-family: var(--font-label);
+  font-style: normal;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-accent-gold);
+  letter-spacing: 0.04em;
+}
+
+/* Why Kayakalp (full section variant) */
+.why-kayakalp-section {}
+
+.why-kayakalp-section__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-12);
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .why-kayakalp-section__inner {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.why-kayakalp-section__stat {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-8);
+}
+
+.stat-item {
+  padding: var(--space-4);
+  background: var(--color-bg-herb);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
+  text-align: center;
+}
+
+.stat-item__number {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  color: var(--color-primary);
+  line-height: 1;
+  margin-bottom: var(--space-1);
+}
+
+.stat-item__label {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.04em;
+}

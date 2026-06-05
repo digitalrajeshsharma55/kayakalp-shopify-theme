@@ -1,0 +1,241 @@
+{{ 'layout-footer.css' | asset_url | stylesheet_tag }}
+
+<footer class="site-footer" role="contentinfo">
+  <!-- Trust badges row -->
+  <div class="footer-trust">
+    <div class="container">
+      <div class="footer-trust__row">
+        <span class="footer-trust__item">🔒 Razorpay Secure</span>
+        <span class="footer-trust__item">🛡️ SSL Certified</span>
+        <span class="footer-trust__item">📜 AYUSH Licensed</span>
+        <span class="footer-trust__item">🏆 GMP Certified</span>
+        <span class="footer-trust__item">🌿 100% Natural</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main footer columns -->
+  <div class="footer-main">
+    <div class="container">
+      <div class="footer-main__grid">
+        <!-- Column 1: Brand -->
+        <div class="footer-col footer-col--brand">
+          <div class="footer-logo">
+            {% if section.settings.logo != blank %}
+              <img
+                src="{{ section.settings.logo | img_url: '200x' }}"
+                alt="{{ shop.name }}"
+                width="140" height="50"
+                loading="lazy">
+            {% else %}
+              <span class="footer-logo__text">{{ shop.name }}</span>
+            {% endif %}
+          </div>
+          <p class="footer-tagline">{{ section.settings.tagline | default: 'Ancient Wisdom. Living Results.' }}</p>
+          <p class="footer-desc">{{ section.settings.brand_desc | default: 'A modern Ayurvedic health brand trusted by 2 lakh+ Indian families. Rooted in classical texts, backed by clinical outcomes.' }}</p>
+          <div class="footer-social">
+            {%- if section.settings.instagram != blank -%}
+              <a href="{{ section.settings.instagram }}" target="_blank" rel="noopener" aria-label="Instagram" class="footer-social__link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              </a>
+            {%- endif -%}
+            {%- if section.settings.facebook != blank -%}
+              <a href="{{ section.settings.facebook }}" target="_blank" rel="noopener" aria-label="Facebook" class="footer-social__link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              </a>
+            {%- endif -%}
+            {%- if section.settings.youtube != blank -%}
+              <a href="{{ section.settings.youtube }}" target="_blank" rel="noopener" aria-label="YouTube" class="footer-social__link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+              </a>
+            {%- endif -%}
+            {%- if section.settings.whatsapp != blank -%}
+              <a href="https://wa.me/{{ section.settings.whatsapp }}" target="_blank" rel="noopener" aria-label="WhatsApp" class="footer-social__link footer-social__link--whatsapp">
+                💬
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+
+        <!-- Column 2: Quick Links -->
+        <div class="footer-col">
+          <h3 class="footer-col__title">Quick Links</h3>
+          <ul class="footer-nav">
+            <li><a href="/" class="footer-nav__link">Home</a></li>
+            <li><a href="/collections/all" class="footer-nav__link">All Products</a></li>
+            <li><a href="/pages/our-story" class="footer-nav__link">Our Story</a></li>
+            <li><a href="/pages/ayurvedic-process" class="footer-nav__link">Ayurvedic Process</a></li>
+            <li><a href="/pages/ingredients" class="footer-nav__link">Ingredients</a></li>
+            <li><a href="/pages/consult" class="footer-nav__link">Consult a Vaidya</a></li>
+            <li><a href="/blogs/health-tips" class="footer-nav__link">Health Tips Blog</a></li>
+            <li><a href="/account" class="footer-nav__link">My Account</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Categories -->
+        <div class="footer-col">
+          <h3 class="footer-col__title">Categories</h3>
+          <ul class="footer-nav">
+            <li><a href="/collections/hair-care" class="footer-nav__link">🌿 Hair Care</a></li>
+            <li><a href="/collections/skin-care" class="footer-nav__link">✨ Skin Care</a></li>
+            <li><a href="/collections/digestive-health" class="footer-nav__link">🌱 Digestive Health</a></li>
+            <li><a href="/collections/joint-bone" class="footer-nav__link">💪 Joint & Bone</a></li>
+            <li><a href="/collections/immunity" class="footer-nav__link">🛡️ Immunity</a></li>
+            <li><a href="/collections/womens-wellness" class="footer-nav__link">🌸 Women's Wellness</a></li>
+            <li><a href="/collections/mens-vitality" class="footer-nav__link">⚡ Men's Vitality</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Contact -->
+        <div class="footer-col">
+          <h3 class="footer-col__title">Contact Us</h3>
+          <div class="footer-contact">
+            {%- if section.settings.phone != blank -%}
+              <a href="tel:{{ section.settings.phone | remove: ' ' | remove: '-' }}" class="footer-contact__item">
+                📞 {{ section.settings.phone }}
+              </a>
+            {%- endif -%}
+            {%- if section.settings.email != blank -%}
+              <a href="mailto:{{ section.settings.email }}" class="footer-contact__item">
+                📧 {{ section.settings.email }}
+              </a>
+            {%- endif -%}
+            {%- if section.settings.address != blank -%}
+              <p class="footer-contact__item footer-contact__item--text">
+                📍 {{ section.settings.address }}
+              </p>
+            {%- endif -%}
+            {%- if section.settings.hours != blank -%}
+              <p class="footer-contact__hours">⏰ {{ section.settings.hours }}</p>
+            {%- endif -%}
+          </div>
+
+          <!-- Newsletter -->
+          {%- if section.settings.show_newsletter -%}
+            <div class="footer-newsletter">
+              <h4 class="footer-newsletter__title">{{ section.settings.newsletter_heading | default: 'Get Wellness Tips' }}</h4>
+              <form class="footer-newsletter__form" action="/contact#footer-newsletter" method="POST" accept-charset="UTF-8">
+                <input type="hidden" name="form_type" value="customer">
+                <input type="hidden" name="utf8" value="✓">
+                <input type="hidden" name="contact[tags]" value="newsletter">
+                <div class="footer-newsletter__row">
+                  <input
+                    type="email"
+                    name="contact[email]"
+                    placeholder="{{ section.settings.newsletter_placeholder | default: 'Your email' }}"
+                    class="footer-newsletter__input"
+                    required
+                    aria-label="Email address">
+                  <button type="submit" class="btn btn-primary btn-sm">Subscribe</button>
+                </div>
+              </form>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="footer-bottom__inner">
+        <p class="footer-bottom__copy">
+          &copy; {{ 'now' | date: '%Y' }} {{ shop.name }} Pvt Ltd &nbsp;·&nbsp;
+          <a href="/policies/privacy-policy">Privacy Policy</a> &nbsp;·&nbsp;
+          <a href="/policies/terms-of-service">Terms</a> &nbsp;·&nbsp;
+          <a href="/policies/refund-policy">Refund Policy</a>
+        </p>
+        <p class="footer-bottom__made">Made in India 🇮🇳</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Footer logo (light)"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Ancient Wisdom. Living Results."
+    },
+    {
+      "type": "textarea",
+      "id": "brand_desc",
+      "label": "Brand description"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email"
+    },
+    {
+      "type": "textarea",
+      "id": "address",
+      "label": "Address"
+    },
+    {
+      "type": "text",
+      "id": "hours",
+      "label": "Business hours",
+      "default": "Mon – Sat  10am – 7pm IST"
+    },
+    {
+      "type": "text",
+      "id": "instagram",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "text",
+      "id": "facebook",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "text",
+      "id": "youtube",
+      "label": "YouTube URL"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp",
+      "label": "WhatsApp number (no +)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_newsletter",
+      "label": "Show newsletter signup",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Newsletter heading",
+      "default": "Get Wellness Tips"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Email placeholder",
+      "default": "Your email address"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer"
+    }
+  ]
+}
+{% endschema %}
