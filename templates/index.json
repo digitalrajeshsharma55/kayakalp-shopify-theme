@@ -155,6 +155,7 @@
         "herb-1": {
           "type": "herb",
           "settings": {
+            "image": "shopify://shop_images/Ashwagandha_with_mortar_and_leaves_202606041930.jpg",
             "name_sanskrit": "अश्वगंधा",
             "name_english": "Ashwagandha",
             "benefit": "The ancient adaptogen — restores vitality, calms the nervous system, builds endurance",
@@ -166,6 +167,7 @@
         "herb-2": {
           "type": "herb",
           "settings": {
+            "image": "shopify://shop_images/Safed_Musli_with_Ayurvedic_props_202606041931.jpg",
             "name_sanskrit": "शतावरी",
             "name_english": "Shatavari",
             "benefit": "Queen of herbs — supports hormonal balance and deep rejuvenation",
@@ -177,6 +179,7 @@
         "herb-3": {
           "type": "herb",
           "settings": {
+            "image": "shopify://shop_images/Fenugreek_powder_with_mortar_202606041931.jpg",
             "name_sanskrit": "मेथी",
             "name_english": "Methi (Fenugreek)",
             "benefit": "Golden seeds for blood sugar balance and metabolic health",
@@ -188,6 +191,7 @@
         "herb-4": {
           "type": "herb",
           "settings": {
+            "image": "shopify://shop_images/Giloy_in_Indian_apothecary_202606041931.jpg",
             "name_sanskrit": "गिलोय",
             "name_english": "Giloy",
             "benefit": "The Amrita of Ayurveda — a powerful immunomodulator and detoxifier",
@@ -199,6 +203,7 @@
         "herb-5": {
           "type": "herb",
           "settings": {
+            "image": "shopify://shop_images/Jamun_berries_with_mortar_202606041930.jpg",
             "name_sanskrit": "जामुन",
             "name_english": "Jamun",
             "benefit": "Indian blackberry — helps regulate glucose metabolism naturally",
@@ -210,6 +215,7 @@
         "herb-6": {
           "type": "herb",
           "settings": {
+            "image": "shopify://shop_images/Karela_powder_on_paper_202606041930.jpg",
             "name_sanskrit": "करेला",
             "name_english": "Karela (Bitter Melon)",
             "benefit": "Nature's insulin mimic — supports healthy glucose levels and digestion",
@@ -221,6 +227,7 @@
         "herb-7": {
           "type": "herb",
           "settings": {
+            "image": "shopify://shop_images/Kaunch_Beej_powder_apothecary_props_202606041931.jpg",
             "name_sanskrit": "कौंच बीज",
             "name_english": "Kaunch Beej",
             "benefit": "Mucuna pruriens — the dopamine herb for male vitality and mood",
@@ -232,6 +239,7 @@
         "herb-8": {
           "type": "herb",
           "settings": {
+            "image": "shopify://shop_images/Neem_root_macro_photography_202606041931.jpg",
             "name_sanskrit": "नीम",
             "name_english": "Neem",
             "benefit": "The purifier — antibacterial, anti-inflammatory, blood cleanser",
@@ -243,6 +251,7 @@
         "herb-9": {
           "type": "herb",
           "settings": {
+            "image": "shopify://shop_images/Safed_Musli_with_Ayurvedic_props_202606041931.jpg",
             "name_sanskrit": "सफेद मूसली",
             "name_english": "Safed Musli",
             "benefit": "Pure white roots for male strength, stamina and reproductive health",
@@ -254,6 +263,7 @@
         "herb-10": {
           "type": "herb",
           "settings": {
+            "image": "shopify://shop_images/Shilajeet_with_Ayurvedic_props_202606041931.jpg",
             "name_sanskrit": "शिलाजीत",
             "name_english": "Shilajit",
             "benefit": "Himalayan mineral resin — the destroyer of weakness, booster of cellular energy",
