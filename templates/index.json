@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -15,7 +24,9 @@
             "cta_primary_label": "Shop Madhu Amrit",
             "cta_primary_url": "/products/madhu-amrit",
             "cta_secondary_label": "Free Consultation →",
-            "cta_secondary_url": "/pages/consult"
+            "cta_secondary_url": "/pages/consult",
+            "product_image": "shopify://shop_images/Kayakalp_Madhu_Amrit_bottle_with__202606051059_caceffe5-0199-426f-871e-6767c845d200.jpg",
+            "product": ""
           }
         },
         "slide-2": {
@@ -30,7 +41,9 @@
             "cta_primary_label": "Shop Wellnera",
             "cta_primary_url": "/products/wellnera-delay-spray",
             "cta_secondary_label": "How It Works →",
-            "cta_secondary_url": "/pages/consult"
+            "cta_secondary_url": "/pages/consult",
+            "product_image": "shopify://shop_images/Wellnera_Delay_Spray_water_splash_202606051117.jpg",
+            "product": ""
           }
         },
         "slide-3": {
@@ -45,26 +58,84 @@
             "cta_primary_label": "Shop O-No-Stop",
             "cta_primary_url": "/products/o-no-stop",
             "cta_secondary_label": "See Ingredients →",
-            "cta_secondary_url": "/pages/consult"
+            "cta_secondary_url": "/pages/consult",
+            "product_image": "shopify://shop_images/ChatGPTImageMay26_2026_03_38_28PM.png",
+            "product": ""
           }
         }
       },
-      "block_order": ["slide-1", "slide-2", "slide-3"],
+      "block_order": [
+        "slide-1",
+        "slide-2",
+        "slide-3"
+      ],
       "settings": {
-        "autoplay": true,
-        "autoplay_speed": 6
+        "autoplay_speed": 6,
+        "autoplay": true
       }
     },
     "trust-strip": {
       "type": "trust-strip",
       "blocks": {
-        "item-1": { "type": "trust_item", "settings": { "icon": "🌿", "label": "100% Natural", "sublabel": "No harmful chemicals" } },
-        "item-2": { "type": "trust_item", "settings": { "icon": "📜", "label": "AYUSH Licensed", "sublabel": "Govt. of India certified" } },
-        "item-3": { "type": "trust_item", "settings": { "icon": "🏆", "label": "GMP Certified", "sublabel": "Quality guaranteed", "highlight": true } },
-        "item-4": { "type": "trust_item", "settings": { "icon": "⭐", "label": "4.8/5 Rating", "sublabel": "2 Lakh+ happy families", "highlight": true } },
-        "item-5": { "type": "trust_item", "settings": { "icon": "🚚", "label": "Free Delivery ₹699+", "sublabel": "Pan India shipping" } }
+        "item-1": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "🌿",
+            "label": "100% Natural",
+            "sublabel": "No harmful chemicals",
+            "link": "",
+            "highlight": false
+          }
+        },
+        "item-2": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "📜",
+            "label": "AYUSH Licensed",
+            "sublabel": "Govt. of India certified",
+            "link": "",
+            "highlight": false
+          }
+        },
+        "item-3": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "🏆",
+            "label": "GMP Certified",
+            "sublabel": "Quality guaranteed",
+            "link": "",
+            "highlight": true
+          }
+        },
+        "item-4": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "⭐",
+            "label": "4.8/5 Rating",
+            "sublabel": "2 Lakh+ happy families",
+            "link": "",
+            "highlight": true
+          }
+        },
+        "item-5": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "🚚",
+            "label": "Free Delivery ₹699+",
+            "sublabel": "Pan India shipping",
+            "link": "",
+            "highlight": false
+          }
+        }
       },
-      "block_order": ["item-1", "item-2", "item-3", "item-4", "item-5"]
+      "block_order": [
+        "item-1",
+        "item-2",
+        "item-3",
+        "item-4",
+        "item-5"
+      ],
+      "settings": {}
     },
     "featured-products": {
       "type": "featured-products",
@@ -72,6 +143,7 @@
         "eyebrow": "MOST LOVED",
         "heading": "Our Most Loved Formulas",
         "subheading": "Crafted from classical texts. Proven in modern homes.",
+        "collection": "",
         "products_to_show": 8,
         "cta_label": "View All Products",
         "cta_url": "/collections/all"
@@ -87,7 +159,8 @@
             "name_english": "Ashwagandha",
             "benefit": "The ancient adaptogen — restores vitality, calms the nervous system, builds endurance",
             "classical_reference": "Charaka Samhita, 600 BCE",
-            "dosha": "Vata"
+            "dosha": "Vata",
+            "link": ""
           }
         },
         "herb-2": {
@@ -97,7 +170,8 @@
             "name_english": "Shatavari",
             "benefit": "Queen of herbs — supports hormonal balance and deep rejuvenation",
             "classical_reference": "Sushruta Samhita, 400 BCE",
-            "dosha": "Vata"
+            "dosha": "Vata",
+            "link": ""
           }
         },
         "herb-3": {
@@ -107,7 +181,8 @@
             "name_english": "Methi (Fenugreek)",
             "benefit": "Golden seeds for blood sugar balance and metabolic health",
             "classical_reference": "Ashtanga Hridayam, 600 CE",
-            "dosha": "Kapha"
+            "dosha": "Kapha",
+            "link": ""
           }
         },
         "herb-4": {
@@ -117,7 +192,8 @@
             "name_english": "Giloy",
             "benefit": "The Amrita of Ayurveda — a powerful immunomodulator and detoxifier",
             "classical_reference": "Charaka Samhita, 600 BCE",
-            "dosha": "Tridosha"
+            "dosha": "Tridosha",
+            "link": ""
           }
         },
         "herb-5": {
@@ -127,7 +203,8 @@
             "name_english": "Jamun",
             "benefit": "Indian blackberry — helps regulate glucose metabolism naturally",
             "classical_reference": "Dhanvantari Nighantu, 700 CE",
-            "dosha": "Kapha"
+            "dosha": "Kapha",
+            "link": ""
           }
         },
         "herb-6": {
@@ -137,7 +214,8 @@
             "name_english": "Karela (Bitter Melon)",
             "benefit": "Nature's insulin mimic — supports healthy glucose levels and digestion",
             "classical_reference": "Ashtanga Hridayam, 600 CE",
-            "dosha": "Kapha"
+            "dosha": "Kapha",
+            "link": ""
           }
         },
         "herb-7": {
@@ -147,7 +225,8 @@
             "name_english": "Kaunch Beej",
             "benefit": "Mucuna pruriens — the dopamine herb for male vitality and mood",
             "classical_reference": "Charaka Samhita, Vajikarana chapter",
-            "dosha": "Vata"
+            "dosha": "Vata",
+            "link": ""
           }
         },
         "herb-8": {
@@ -157,7 +236,8 @@
             "name_english": "Neem",
             "benefit": "The purifier — antibacterial, anti-inflammatory, blood cleanser",
             "classical_reference": "Sushruta Samhita, 400 BCE",
-            "dosha": "Pitta"
+            "dosha": "Pitta",
+            "link": ""
           }
         },
         "herb-9": {
@@ -167,7 +247,8 @@
             "name_english": "Safed Musli",
             "benefit": "Pure white roots for male strength, stamina and reproductive health",
             "classical_reference": "Raj Nighantu, 1300 CE",
-            "dosha": "Vata"
+            "dosha": "Vata",
+            "link": ""
           }
         },
         "herb-10": {
@@ -177,11 +258,23 @@
             "name_english": "Shilajit",
             "benefit": "Himalayan mineral resin — the destroyer of weakness, booster of cellular energy",
             "classical_reference": "Charaka Samhita, Rasayana chapter",
-            "dosha": "Tridosha"
+            "dosha": "Tridosha",
+            "link": ""
           }
         }
       },
-      "block_order": ["herb-1", "herb-2", "herb-3", "herb-4", "herb-5", "herb-6", "herb-7", "herb-8", "herb-9", "herb-10"],
+      "block_order": [
+        "herb-1",
+        "herb-2",
+        "herb-3",
+        "herb-4",
+        "herb-5",
+        "herb-6",
+        "herb-7",
+        "herb-8",
+        "herb-9",
+        "herb-10"
+      ],
       "settings": {
         "eyebrow": "FROM NATURE'S PHARMACY",
         "heading": "Pure Ingredients. Ancient Science.",
@@ -220,12 +313,44 @@
             "description": "Formulated in our NABL-tested, GMP-compliant facility. Every batch tested for purity, potency, and safety before it reaches you."
           }
         },
-        "stat-1": { "type": "stat", "settings": { "number": "2L+", "label": "Happy Families" } },
-        "stat-2": { "type": "stat", "settings": { "number": "40+", "label": "Ayurvedic Vaidyas" } },
-        "stat-3": { "type": "stat", "settings": { "number": "50+", "label": "Formulas" } },
-        "stat-4": { "type": "stat", "settings": { "number": "10+", "label": "Years of Research" } }
+        "stat-1": {
+          "type": "stat",
+          "settings": {
+            "number": "2L+",
+            "label": "Happy Families"
+          }
+        },
+        "stat-2": {
+          "type": "stat",
+          "settings": {
+            "number": "40+",
+            "label": "Ayurvedic Vaidyas"
+          }
+        },
+        "stat-3": {
+          "type": "stat",
+          "settings": {
+            "number": "50+",
+            "label": "Formulas"
+          }
+        },
+        "stat-4": {
+          "type": "stat",
+          "settings": {
+            "number": "10+",
+            "label": "Years of Research"
+          }
+        }
       },
-      "block_order": ["pillar-1", "pillar-2", "pillar-3", "stat-1", "stat-2", "stat-3", "stat-4"],
+      "block_order": [
+        "pillar-1",
+        "pillar-2",
+        "pillar-3",
+        "stat-1",
+        "stat-2",
+        "stat-3",
+        "stat-4"
+      ],
       "settings": {
         "eyebrow": "WHY 2 LAKH+ FAMILIES TRUST US",
         "heading": "Ancient Wisdom. Modern Standards.",
@@ -235,27 +360,93 @@
     "how-it-works": {
       "type": "how-it-works",
       "blocks": {
-        "step-1": { "type": "step", "settings": { "icon": "💬", "title": "Consult", "description": "Free Vaidya Chat — tell us your concern, get expert guidance.", "cta_label": "Chat Now →", "cta_url": "/pages/consult" } },
-        "step-2": { "type": "step", "settings": { "icon": "🌿", "title": "Choose", "description": "We recommend the right formula based on your Prakriti and concern." } },
-        "step-3": { "type": "step", "settings": { "icon": "✨", "title": "Transform", "description": "See real results in 4–8 weeks with consistent Ayurvedic rituals." } }
+        "step-1": {
+          "type": "step",
+          "settings": {
+            "icon": "💬",
+            "title": "Consult",
+            "description": "Free Vaidya Chat — tell us your concern, get expert guidance.",
+            "cta_label": "Chat Now →",
+            "cta_url": "/pages/consult"
+          }
+        },
+        "step-2": {
+          "type": "step",
+          "settings": {
+            "icon": "🌿",
+            "title": "Choose",
+            "description": "We recommend the right formula based on your Prakriti and concern.",
+            "cta_label": "",
+            "cta_url": ""
+          }
+        },
+        "step-3": {
+          "type": "step",
+          "settings": {
+            "icon": "✨",
+            "title": "Transform",
+            "description": "See real results in 4–8 weeks with consistent Ayurvedic rituals.",
+            "cta_label": "",
+            "cta_url": ""
+          }
+        }
       },
-      "block_order": ["step-1", "step-2", "step-3"],
+      "block_order": [
+        "step-1",
+        "step-2",
+        "step-3"
+      ],
       "settings": {
         "eyebrow": "YOUR WELLNESS JOURNEY",
-        "heading": "Your Wellness Journey"
+        "heading": "Your Wellness Journey",
+        "subheading": "Three simple steps to lasting Ayurvedic wellness"
       }
     },
     "testimonials": {
       "type": "testimonials",
       "blocks": {
-        "t-1": { "type": "testimonial", "settings": { "name": "Sunita D.", "city": "Jaipur", "product": "Hair Oil", "quote": "Meri beti ke baal 3 mahine mein ek dum ghane ho gaye. Shukriya Kayakalp!", "verified": true } },
-        "t-2": { "type": "testimonial", "settings": { "name": "Ramesh P.", "city": "Pune", "product": "Arthro-Ease", "quote": "Joint pain jo 5 saal se tha, 6 hafte mein bahut theek hua. Bahut shukriya!", "verified": true } },
-        "t-3": { "type": "testimonial", "settings": { "name": "Priya M.", "city": "Bengaluru", "product": "Kumkumadi Serum", "quote": "Skin ne pehli baar itni chamak dekhi — completely natural! Highly recommend.", "verified": true } }
+        "t-1": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Sunita D.",
+            "city": "Jaipur",
+            "product": "Hair Oil",
+            "quote": "Meri beti ke baal 3 mahine mein ek dum ghane ho gaye. Shukriya Kayakalp!",
+            "verified": true
+          }
+        },
+        "t-2": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Ramesh P.",
+            "city": "Pune",
+            "product": "Arthro-Ease",
+            "quote": "Joint pain jo 5 saal se tha, 6 hafte mein bahut theek hua. Bahut shukriya!",
+            "verified": true
+          }
+        },
+        "t-3": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Priya M.",
+            "city": "Bengaluru",
+            "product": "Kumkumadi Serum",
+            "quote": "Skin ne pehli baar itni chamak dekhi — completely natural! Highly recommend.",
+            "verified": true
+          }
+        }
       },
-      "block_order": ["t-1", "t-2", "t-3"],
+      "block_order": [
+        "t-1",
+        "t-2",
+        "t-3"
+      ],
       "settings": {
+        "eyebrow": "REAL STORIES",
         "heading": "Real Stories. Real Results.",
-        "show_summary": true
+        "subheading": "From families across India who trusted Ayurveda.",
+        "show_summary": true,
+        "summary_text": "4.8/5 based on 12,400+ verified reviews"
       }
     },
     "blog-preview": {
@@ -263,22 +454,35 @@
       "settings": {
         "eyebrow": "FROM OUR VAIDYAS",
         "heading": "Wisdom from Our Vaidyas",
+        "blog": "",
         "articles_count": 3,
-        "cta_label": "View All Articles"
+        "cta_label": "View All Articles",
+        "cta_url": ""
       }
     },
     "consultation-cta": {
       "type": "consultation-cta",
       "settings": {
+        "eyebrow": "FREE CONSULTATION",
         "heading": "Not Sure Where to Start?",
         "subtext": "Our Ayurvedic experts are available Mon–Sat, 10am–7pm",
-        "hours": "Mon – Sat  ·  10:00 AM – 7:00 PM IST"
+        "hours": "Mon – Sat  ·  10:00 AM – 7:00 PM IST",
+        "whatsapp_number": "919876543210",
+        "whatsapp_message": "Namaste! I'd like a free Ayurvedic consultation.",
+        "phone": "+91 98765 43210",
+        "consult_url": ""
       }
     },
     "brand-story-teaser": {
       "type": "brand-story-teaser",
       "settings": {
+        "eyebrow": "OUR STORY",
         "heading": "Rooted in Tradition. Built for Today.",
+        "para_1": "Kayakalp was born from a simple belief: that India's ancient healing wisdom is not a relic of the past, but the medicine of the future.",
+        "para_2": "Our founders, rooted in a family of Ayurvedic Vaidyas from Rajasthan, grew up watching herbs heal what medicines couldn't. They set out to bring that wisdom to every Indian home.",
+        "para_3": "Today, we source directly from Himalayan herb farms, formulate using classical texts, and validate every product in NABL-certified labs. Because trust is earned, not claimed.",
+        "pullquote": "Kayakalp is not a product. It is a promise — to bring back the age-old art of healing in every Indian home.",
+        "pullquote_author": "Founder, Kayakalp Ayurveda",
         "cta_label": "Read Our Full Story",
         "cta_url": "/pages/our-story"
       }
