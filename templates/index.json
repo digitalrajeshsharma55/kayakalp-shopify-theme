@@ -299,6 +299,7 @@
         "pillar-1": {
           "type": "pillar",
           "settings": {
+            "image": "shopify://shop_images/Mobile_phone_speech_bubble_leaf_202606050614.jpg",
             "number": "01",
             "category_label": "PURE SOURCING",
             "title": "Farm-to-Formula",
@@ -308,6 +309,7 @@
         "pillar-2": {
           "type": "pillar",
           "settings": {
+            "image": "shopify://shop_images/Human_silhouette_radiating_energ__202606050615.jpg",
             "number": "02",
             "category_label": "CLASSICAL KNOWLEDGE",
             "title": "Rooted in Ancient Texts",
@@ -317,6 +319,7 @@
         "pillar-3": {
           "type": "pillar",
           "settings": {
+            "image": "shopify://shop_images/Hand_holding_herb_checkmark_202606050615.jpg",
             "number": "03",
             "category_label": "MODERN STANDARDS",
             "title": "AYUSH Certified. GMP Compliant.",
@@ -461,6 +464,46 @@
     },
     "blog-preview": {
       "type": "blog-preview",
+      "blocks": {
+        "article_pw86tj": {
+          "type": "article",
+          "settings": {
+            "image": "shopify://shop_images/1_f5afd0a1-3d7d-413f-9cc5-eb725aadbb64.png",
+            "title": "5 Ayurvedic Herbs for Hair Growth",
+            "category": "HAIR CARE",
+            "excerpt": "Discover the classical formulations that Ayurvedic Vaidyas have used for centuries to restore hair health.",
+            "url": "",
+            "read_time": "4 min read"
+          }
+        },
+        "article_JTzkJt": {
+          "type": "article",
+          "settings": {
+            "image": "shopify://shop_images/3_77ef7db9-3287-425a-a921-a875c7d61167.png",
+            "title": "5 Ayurvedic Herbs for Hair Growth",
+            "category": "HAIR CARE",
+            "excerpt": "Discover the classical formulations that Ayurvedic Vaidyas have used for centuries to restore hair health.",
+            "url": "",
+            "read_time": "4 min read"
+          }
+        },
+        "article_dCGGFj": {
+          "type": "article",
+          "settings": {
+            "image": "shopify://shop_images/Gemini_Generated_Image_ea7x47ea7x47ea7x.png",
+            "title": "5 Ayurvedic Herbs for Hair Growth",
+            "category": "HAIR CARE",
+            "excerpt": "Discover the classical formulations that Ayurvedic Vaidyas have used for centuries to restore hair health.",
+            "url": "",
+            "read_time": "4 min read"
+          }
+        }
+      },
+      "block_order": [
+        "article_pw86tj",
+        "article_JTzkJt",
+        "article_dCGGFj"
+      ],
       "settings": {
         "eyebrow": "FROM OUR VAIDYAS",
         "heading": "Wisdom from Our Vaidyas",
@@ -477,7 +520,7 @@
         "heading": "Not Sure Where to Start?",
         "subtext": "Our Ayurvedic experts are available Mon–Sat, 10am–7pm",
         "hours": "Mon – Sat  ·  10:00 AM – 7:00 PM IST",
-        "whatsapp_number": "919876543210",
+        "whatsapp_number": "",
         "whatsapp_message": "Namaste! I'd like a free Ayurvedic consultation.",
         "phone": "+91 98765 43210",
         "consult_url": ""

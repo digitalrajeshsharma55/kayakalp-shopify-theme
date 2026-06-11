@@ -1,8 +1,57 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "animations_enabled": true,
-    "whatsapp_number": "919876543210",
-    "whatsapp_default_message": "Namaste! I'm interested in Kayakalp's Ayurvedic products."
+    "whatsapp_number": "",
+    "whatsapp_default_message": "",
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "show_announcement": true,
+          "text_1": "Free Delivery Above ₹699",
+          "text_2": "Trusted by 2 Lakh+ Families",
+          "text_3": "100% Natural Ingredients",
+          "text_4": "Use code WELCOME10 for 10% Off"
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "main_menu": "main-menu",
+          "phone": "+91 98765 43210",
+          "whatsapp_number": "919876543210",
+          "default_lang": "EN"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "tagline": "Ancient Wisdom. Living Results.",
+          "brand_desc": "",
+          "phone": "",
+          "email": "",
+          "address": "",
+          "hours": "Mon – Sat  10am – 7pm IST",
+          "instagram": "",
+          "facebook": "",
+          "youtube": "",
+          "whatsapp": "",
+          "show_newsletter": true,
+          "newsletter_heading": "Get Wellness Tips",
+          "newsletter_placeholder": "Your email address"
+        }
+      }
+    },
+    "content_for_index": []
   },
   "presets": {}
 }
