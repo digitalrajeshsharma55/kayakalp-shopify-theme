@@ -139,6 +139,24 @@
     },
     "featured-products": {
       "type": "featured-products",
+      "blocks": {
+        "product_FcXMfU": {
+          "type": "product",
+          "settings": {
+            "product": "wellnera-delay-spray-for-men-long-lasting-performance-spray-20g"
+          }
+        },
+        "product_qd7Kq9": {
+          "type": "product",
+          "settings": {
+            "product": "o-no-stop-30-capsules-ayurvedic-male-wellness-capsules"
+          }
+        }
+      },
+      "block_order": [
+        "product_FcXMfU",
+        "product_qd7Kq9"
+      ],
       "settings": {
         "eyebrow": "MOST LOVED",
         "heading": "Our Most Loved Formulas",
