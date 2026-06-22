@@ -632,6 +632,6 @@ h4 { font-size: var(--text-md); }
   .main-content,
   .container {
     padding-left: 100px !important;
-    padding-right: 1000px !important;
+    padding-right: 100px !important;
   }
 }
