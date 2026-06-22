@@ -627,3 +627,11 @@ h4 { font-size: var(--text-md); }
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
+@media (min-width: 990px) {
+  .page-wrapper,
+  .main-content,
+  .container {
+    padding-left: 100px !important;
+    padding-right: 1000px !important;
+  }
+}
